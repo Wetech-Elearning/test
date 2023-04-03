@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+    <script type="text/javascript" src="js/Jquery.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-image: url("img/background.webp");
+        }
+        .header{
+            font-size: 22px;
+            text-align: center;
+        }
+        .question{
+            display: inline-block;
+            width: 350px;
+            text-align: right;
+        }
+        .answer{
+            display: inline;
+            width: 300px;
+            position: relative;
+        }
+        .attention{
+            position: absolute;
+            width: 260px;
+            color: red;
+        }
+        .label1{
+            display: inline-block;
+            width: 300px;
+            text-align: right;
+        }
+        select{
+            display: inline-block;
+            width: 500px;
+            height: 30px;
+        }
+        .submit{
+            text-align: center;
+        }
+        .button{
+            width: 100px;
+            height: 30px;
+            line-height: 15px;
+            background: aqua;
+            color: black;
+            font-size: 13px;
+            border-radius: 13px/40px;
+            text-align: center;
+            border: none;
+            margin-right: 100px;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>基本情報</h2>
+</div>
+<form class="form" id="form-sava">
+    <!-- 姓(漢字) -->
+    <label class="question" id="seilabel">姓(漢字)</label>
+    <div class="answer">
+        <input type="text" name="sei" id="sei" size="25" placeholder="姓(漢字)を入力してください" maxlength="40">
+        <span class="attention" id="seiAttn"></span>
+    </div>
+    <!-- 名(漢字) -->
+    <label class="question" id="meilabel">名(漢字)</label>
+    <div class="answer">
+        <input type="text" name="mei" id="mei" size="25" placeholder="名(漢字)を入力してください" maxlength="40">
+        <span  class="attention" id="meiAttn"></span>
+    </div>
+
+
+    <br><br>
+    <!-- セイ(カナ) -->
+    <label class="question" id="seikanalabel">セイ(カナ)</label>
+    <div class="answer">
+        <input type="text" name="seikana" id="seikana" size="25" placeholder="セイ(カナ)を入力してください" maxlength="40">
+        <span class="attention" id="seikanaAttn"></span>
+    </div>
+    <!-- メイ(カナ) -->
+    <label class="question" id="meikanalabel">メイ(カナ)</label>
+    <div class="answer">
+            <input type="text" name="meikana" id="meikana" size="25" placeholder="メイ(カナ)を入力してください" maxlength="40">
+        <span class="attention" id="meikanaAttn"></span>
+    </div>
+
+
+    <br><br>
+    <!-- 姓(ローマ字) -->
+    <label class="question" id="seiromalabel">姓(ローマ字)</label>
+    <div class="answer">
+        <input type="text" name="seiroma" id="seiroma" size="25"
+               placeholder="姓(ローマ字)を入力してください" maxlength="40">
+        <span class="attention" id="seiromaAttn"></span>
+    </div>
+    <!-- 名(ローマ字) -->
+    <label class="question" id="meiromalabel">名(ローマ字)</label>
+    <div class="answer">
+        <input type="text" name="meiroma" id="meiroma" size="25"
+               placeholder="名(ローマ字)を入力してください" maxlength="40">
+        <span class="attention" id="meiromaAttn"></span>
+    </div>
+
+    <br><br>
+    <!-- 国籍 -->
+    <label class="label1" id="countrylabel">国籍</label>
+        <select name="country" id="country">
+            <option selected>国籍を選択してください</option>
+            <option value="中国">中国</option>
+            <option value="日本">日本</option>
+            <option value="韓国">韓国</option>
+            <option value="スペイン">スペイン</option>
+        </select>
+    <span class="attention" id="countryAttn"></span>
+
+
+    <br><br>
+    <!-- 生日年月 -->
+    <label class="label1" id="birthlabel">生日年月</label>
+    <div class="answer">
+        <input type="date" name="birth" id="birth">
+        <span class="attention" id="birthAttn"></span>
+    </div>
+
+    <br>
+    <p style="text-align: center">母語が日本語ではない方は日本語能力を証明する書類を提出していただく必要があります。詳細は募集要項をご確認ください</p>
+    <!-- 性别 -->
+    <label class="label1" id="sexlabel">性别</label>
+    <label>
+        <input type="radio" name="sex" id="sex1"
+               value="男">男
+    </label>
+    <label>
+        <input type="radio" name="sex" id="sex2"
+               value="女">女
+    </label>
+    <label>
+        <input type="radio" name="sex" id="sex3"
+               value="Decline to State(声明拒否)">Decline to State(声明拒否)
+    </label>
+    <span class="attention" id="sexAttn"></span>
+
+
+    <br><br>
+    <!-- 電話番号 -->
+    <label class="question" id="telLabel">電話番号</label>
+    <div class="answer">
+        <input type="text" name="tel" id="tel"  size="25" placeholder="電話番号(任意)" maxlength="11">
+        <span class="attention" id="telAttn"></span>
+    </div>
+
+
+    <br><br>
+    <!-- 携帯電話 -->
+    <label class="question" id="phoneLabel">携帯電話</label>
+    <div class="answer">
+        <input type="text" name="phone" id="phone"  size="25" placeholder="携帯電話を入力してください" maxlength="11">
+        <span class="attention" id="phoneAttn"></span>
+    </div>
+
+
+    <br><br>
+    <!-- 職業 -->
+    <label class="label1" id="jobLabel">職業</label>
+        <select name="job" id="job">
+        <option selected>職業を選択してください</option>
+        <option value="01 自営業">01 自営業</option>
+        <option value="02 公務員">02 公務員</option>
+        <option value="03 会社員">03 会社員</option>
+        <option value="04 その他">04 その他</option>
+        <option value="05 無職">05 無職</option>
+    </select>
+    <br>
+    <span class="attention" id="jobAttn"></span>
+
+
+    <br><br>
+    <!-- 勤務先(任意) -->
+    <label class="label1" id="jobAddLable">勤務先</label>
+    <div class="answer">
+        <input type="text" name="jobAdd" id="jobAdd" placeholder="勤務先(任意)" maxlength="40">
+    </div>
+
+
+    <br><br>
+    <!--ボタン-->
+    <div class="submit">
+        <button type="button" class="button" id="save">基本情報保存</button>
+        <span width="40"></span>
+        <button type="button" class="button" id="next" >次へ</button>
+    </div>
+</form>
+
+<script>
+    <!-- フォームの入力フィールドを取得する -->
+    let seiInput = document.getElementById("sei");
+    let meiInput = document.getElementById("mei");
+    let seikanaInput = document.getElementById("seikana");
+    let meikanaInput = document.getElementById("meikana");
+    let seiromaInput = document.getElementById("seiroma");
+    let meiromaInput = document.getElementById("meiroma");
+    let countryInput = document.getElementById("country");
+    let birthInput = document.getElementById("birth");
+    let telInput = document.getElementById("tel");
+    let phoneInput = document.getElementById("phone");
+    let jobInput = document.getElementById("job");
+    let jobAddInput = document.getElementById("jobAdd");
+    let saveButton = document.getElementById("save");
+    let nextButton = document.getElementById("next");
+
+
+    let errorcode1 = 0;
+    let errorcode2 = 0;
+    let errorcode3 = 0;
+    let errorcode4 = 0;
+    let errorcode5 = 0;
+    let errorcode6 = 0;
+    let errorcode7 = 0;
+    let errorcode8 = 0;
+    let errorcode9 = 0;
+
+
+
+    <!-- 保存ボタンクリックイベント データの送信 -->
+    saveButton.addEventListener("click",() => {
+        <!-- 入力フィールドの値を取得する -->
+        let nameSei = seiInput.value.trim()
+        let nameMei = meiInput.value.trim()
+        let nameSeiKana = seikanaInput.value.trim()
+        let nameMeiKana = meikanaInput.value.trim()
+        let alphLastname = seiromaInput.value.trim()
+        let alphFirstname = meiromaInput.value.trim()
+        let country = countryInput.options[countryInput.selectedIndex].value.trim()
+        let birthdate = birthInput.value.trim()
+            let sex
+            let sexInput
+            let gender = document.getElementsByName("sex");
+            for (let i = 0; i < gender.length; i++) {
+                if (gender[i].checked === true) {
+                    sexInput = gender[i].value;
+                    sex = sexInput.trim()
+                }
+            }
+        let tel = telInput.value.trim()
+        let phone = phoneInput.value.trim()
+        let shokugyoCode = jobInput.value.trim()
+        let kinmusakiName = jobAddInput.value.trim()
+        let errorcode = 0;
+        errorcode = errorcode1+errorcode2+errorcode3+errorcode4+
+            errorcode5+errorcode6+errorcode7+errorcode8+errorcode9;
+        console.log(errorcode)
+
+            //判断输入框的值是否为空值
+            //フォーム入力ボックスの値がNULL値かどうかを判断する
+        if (!nameSei){
+            seiAttn.innerHTML = "姓を入力してください";
+            errorcode = 1
+        }
+        if (!nameMei){
+            meiAttn.innerHTML = "名を入力してください";
+            errorcode = 1
+        }
+        if (!nameSeiKana){
+            seikanaAttn.innerHTML = "セイを入力してください";
+            errorcode = 1
+        }
+        if (!nameMeiKana){
+            meikanaAttn.innerHTML = "メイを入力してください";
+            errorcode = 1
+        }
+        if (!alphLastname){
+            seiromaAttn.innerHTML = "姓（ローマ字）を入力してください";
+            errorcode = 1
+        }
+        if (!alphFirstname){
+            meiromaAttn.innerHTML = "名（ローマ字）をで入力してください";
+            errorcode = 1
+        }if (!(country)){
+            countryAttn.innerHTML = "国籍を選択してください";
+            errorcode = 1
+        }
+        if (!birthdate){
+            birthAttn.innerHTML = "生年月日で入力してください";
+            errorcode = 1
+        }
+        if (!sex){
+            sexAttn.innerHTML = "性別を選択してください";
+            errorcode = 1
+        }
+        if (!phone){
+            phoneAttn.innerHTML = "携帯電話を入力してください";
+            errorcode = 1
+        }
+        if (!shokugyoCode){
+            jobAttn.innerHTML = "仕事を選択してください";
+            errorcode = 1
+        }
+        if (!(errorcode === 0)){
+            alert("正しく入力してください")
+            return
+        }
+
+        fetch("user/save",{
+            method: "post",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({nameSei,nameMei,nameSeiKana,nameMeiKana,alphLastname,
+                alphFirstname,country,birthdate,sex,tel,phone,shokugyoCode,kinmusakiName})
+            })
+            .then(response => {
+                console.log(response);
+                if (response.ok){
+                    alert("保存成功");
+                }else {
+                    return response.text().then(text => {
+                        console.log(text);
+                        throw new Error(text);
+                    })
+                        .catch(error => {
+                            alert(error.message);
+                        })
+                }
+            }
+            )
+
+    })
+    <!-- 次へボタンクリックイベント データの送信 -->
+    nextButton.addEventListener("click",() => {
+        <!-- 入力フィールドの値を取得する -->
+        let id = 0
+        let nameSei = seiInput.value.trim()
+        let nameMei = meiInput.value.trim()
+        let nameSeiKana = seikanaInput.value.trim()
+        let nameMeiKana = meikanaInput.value.trim()
+        let alphLastname = seiromaInput.value.trim()
+        let alphFirstname = meiromaInput.value.trim()
+        let country = countryInput.options[countryInput.selectedIndex].value.trim()
+        let birthdate = birthInput.value.trim()
+        let sex
+        let sexInput
+        let gender = document.getElementsByName("sex");
+        for (let i = 0; i < gender.length; i++) {
+            if (gender[i].checked === true) {
+                sexInput = gender[i].value;
+                sex = sexInput.trim()
+            }
+        }
+        let tel = telInput.value.trim()
+        let phone = phoneInput.value.trim()
+        let shokugyoCode = jobInput.value.trim()
+        let kinmusakiName = jobAddInput.value.trim()
+        let errorcode = 0;
+        errorcode = errorcode1+errorcode2+errorcode3+errorcode4+
+            errorcode5+errorcode6+errorcode7+errorcode8+errorcode9;
+
+        //判断输入框的值是否为空值
+        //フォーム入力ボックスの値がNULL値かどうかを判断する
+        if (!nameSei){
+            seiAttn.innerHTML = "姓を入力してください";
+            errorcode = 1
+        }
+        if (!nameMei){
+            meiAttn.innerHTML = "名を入力してください";
+            errorcode = 1
+        }
+        if (!nameSeiKana){
+            seikanaAttn.innerHTML = "セイを入力してください";
+            errorcode = 1
+        }
+        if (!nameMeiKana){
+            meikanaAttn.innerHTML = "メイを入力してください";
+            errorcode = 1
+        }
+        if (!alphLastname){
+            seiromaAttn.innerHTML = "姓（ローマ字）を入力してください";
+            errorcode = 1
+        }
+        if (!alphFirstname){
+            meiromaAttn.innerHTML = "名（ローマ字）をで入力してください";
+            errorcode = 1
+        }if (!(country)){
+            countryAttn.innerHTML = "国籍を選択してください";
+            errorcode = 1
+        }
+        if (!birthdate){
+            birthAttn.innerHTML = "生年月日で入力してください";
+            errorcode = 1
+        }
+        if (!sex){
+            sexAttn.innerHTML = "性別を選択してください";
+            errorcode = 1
+        }
+        if (!phone){
+            phoneAttn.innerHTML = "携帯電話を入力してください";
+            errorcode = 1
+        }
+        if (!shokugyoCode){
+            jobAttn.innerHTML = "仕事を選択してください";
+            errorcode = 1
+        }
+        if (!(errorcode === 0)){
+            alert("正しく入力してください")
+            return
+        }
+
+
+        fetch("user/save", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nameSei,
+                nameMei,
+                nameSeiKana,
+                nameMeiKana,
+                alphLastname,
+                alphFirstname,
+                country,
+                birthdate,
+                sex,
+                tel,
+                phone,
+                shokugyoCode,
+                kinmusakiName
+            })
+        })
+            .then(response => {
+                if (response.ok){
+                    alert("保存成功");
+                    return response.json();
+                } else {
+                    throw new Error(response.statusText);
+                }
+            })
+            .then(idData => {
+                id = idData.id;
+                localStorage.setItem("id", id);
+                console.log(localStorage.getItem("id"));
+                window.location.href = "tanponin.html";
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+
+
+
+
+
+
+
+
+
+
+
+        // fetch("user/save",{
+        //     method: "post",
+        //     headers:{
+        //         "Content-Type": "application/json"
+        //     },
+        //     body:JSON.stringify({nameSei,nameMei,nameSeiKana,nameMeiKana,alphLastname,alphFirstname,
+        //         country,birthdate,sex, tel,phone,shokugyoCode,kinmusakiName})
+        // })
+        //     .then(idData => {
+        //         idData = idData.json();
+        //         id = idData.id;
+        //         localStorage.setItem("id",id)
+        //         console.log(localStorage.getItem("id"))
+        //         window.location.href = "tanponin.html";
+        //     })
+        //     .then(response => {
+        //             console.log(response);
+        //             if (response.ok){
+        //                 alert("保存成功");
+        //             }else {
+        //                 return response.text().then(text => {
+        //                     console.log(text);
+        //                     throw new Error(text);
+        //                 })
+        //                     .catch(error => {
+        //                         alert(error.message);
+        //                     })
+        //             }
+        //         }
+        //     )
+        //     //.then(response => response.json())
+        //     .catch(error => {
+        //         alert(error.message);
+        //     })
+
+
+
+
+    })
+
+
+    // 英数字的全角转换为半角
+    // 英数字の全角-半角変換
+    function hanKaku2zenKaku(str) {
+        return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        })
+    }
+
+    // 将姓的ローマ全角转换为半角
+    // 姓の英数字の全角-半角変換する
+    seiromaInput.oninput = function () {
+        seiromaInput.value=hanKaku2zenKaku(seiromaInput.value)
+    }
+    // 将名的ローマ全角转换为半角
+    // 名の英数字の全角-半角変換する
+    meiromaInput.oninput = function () {
+        meiromaInput.value=hanKaku2zenKaku(meiromaInput.value)
+    }
+
+
+    function zenKana2hanKana(str){
+        let kanaMap = {
+            "ガ": "ｶﾞ", "ギ": "ｷﾞ", "グ": "ｸﾞ", "ゲ": "ｹﾞ", "ゴ": "ｺﾞ",
+            "ザ": "ｻﾞ", "ジ": "ｼﾞ", "ズ": "ｽﾞ", "ゼ": "ｾﾞ", "ゾ": "ｿﾞ",
+            "ダ": "ﾀﾞ", "ヂ": "ﾁﾞ", "ヅ": "ﾂﾞ", "デ": "ﾃﾞ", "ド": "ﾄﾞ",
+            "バ": "ﾊﾞ", "ビ": "ﾋﾞ", "ブ": "ﾌﾞ", "ベ": "ﾍﾞ", "ボ": "ﾎﾞ",
+            "パ": "ﾊﾟ", "ピ": "ﾋﾟ", "プ": "ﾌﾟ", "ペ": "ﾍﾟ", "ポ": "ﾎﾟ",
+            "ヴ": "ｳﾞ", "ヷ": "ﾜﾞ", "ヺ": "ｦﾞ",
+            "ア": "ｱ", "イ": "ｲ", "ウ": "ｳ", "エ": "ｴ", "オ": "ｵ",
+            "カ": "ｶ", "キ": "ｷ", "ク": "ｸ", "ケ": "ｹ", "コ": "ｺ",
+            "サ": "ｻ", "シ": "ｼ", "ス": "ｽ", "セ": "ｾ", "ソ": "ｿ",
+            "タ": "ﾀ", "チ": "ﾁ", "ツ": "ﾂ", "テ": "ﾃ", "ト": "ﾄ",
+            "ナ": "ﾅ", "ニ": "ﾆ", "ヌ": "ﾇ", "ネ": "ﾈ", "ノ": "ﾉ",
+            "ハ": "ﾊ", "ヒ": "ﾋ", "フ": "ﾌ", "ヘ": "ﾍ", "ホ": "ﾎ",
+            "マ": "ﾏ", "ミ": "ﾐ", "ム": "ﾑ", "メ": "ﾒ", "モ": "ﾓ",
+            "ヤ": "ﾔ", "ユ": "ﾕ", "ヨ": "ﾖ",
+            "ラ": "ﾗ", "リ": "ﾘ", "ル": "ﾙ", "レ": "ﾚ", "ロ": "ﾛ",
+            "ワ": "ﾜ", "ヲ": "ｦ", "ン": "ﾝ",
+            "ァ": "ｧ", "ィ": "ｨ", "ゥ": "ｩ", "ェ": "ｪ", "ォ": "ｫ",
+            "ッ": "ｯ", "ャ": "ｬ", "ュ": "ｭ", "ョ": "ｮ",
+            "。": "｡", "、": "､", "ー": "ｰ", "「": "｢", "」": "｣", "・": "･"
+        }
+        let reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
+        return str
+            .replace(reg, function (match) {
+                return kanaMap[match];
+            })
+            .replace(/゛/g, "ﾞ")
+            .replace(/゜/g, "ﾟ");
+    }
+
+    // 将姓的カナ全角转换为半角
+    // 姓のカナ全角を半角に変換する
+    seikanaInput.oninput = function () {
+        seikanaInput.value=zenKana2hanKana(seikanaInput.value)
+    }
+    // 将名的カナ全角转换为半角
+    // 名のカナ全角を半角に変換する
+    meikanaInput.oninput = function () {
+        meikanaInput.value=zenKana2hanKana(meikanaInput.value)
+    }
+
+    //各入力情報をチェックして、それに応じてエラーメッセージの表示/非表示を切り替える
+    //检查每个输入框的内容，根据正误切换提示信息。
+
+    seiInput.onblur = function () {
+        let seiAttn = document.getElementById("seiAttn");
+        let reg = /^[\u4E00-\u9FA5]+$/;
+        if (reg.test(seiInput.value)) {
+            seiAttn.innerHTML = "";
+                errorcode1 = 0;
+
+        } else {
+            seiAttn.innerHTML = "漢字で入力してください";
+            errorcode1 = 1
+        }
+    }
+
+    meiInput.onblur = function () {
+        let meiAttn = document.getElementById("meiAttn");
+        let reg = /^[\u4E00-\u9FA5]+$/;
+        if (reg.test(meiInput.value)) {
+            meiAttn.innerHTML = "";
+            errorcode2 = 0;
+        } else {
+            meiAttn.innerHTML = "漢字で入力してください";
+            errorcode2 = 1
+        }
+    }
+
+    seikanaInput.onblur = function () {
+        let seikanaAttn = document.getElementById("seikanaAttn");
+        let reg = /^[ｧ-ﾝﾞﾟ]+$/;
+        if (reg.test(seikanaInput.value)) {
+            seikanaAttn.innerHTML = "";
+            errorcode3 = 0;
+        } else {
+            seikanaAttn.innerHTML = "カタカナで入力してください";
+            errorcode3 = 1
+        }
+    }
+
+    meikanaInput.onblur = function () {
+        let meikanaAttn = document.getElementById("meikanaAttn");
+        let reg =/^[ｧ-ﾝﾞﾟ]+$/;
+        if (reg.test(meikanaInput.value)) {
+            meikanaAttn.innerHTML = "";
+            errorcode4 = 0;
+        } else {
+            meikanaAttn.innerHTML = "カタカナで入力してください";
+            errorcode4 = 1
+        }
+    }
+
+    seiromaInput.onblur = function () {
+        let seiromaAttn = document.getElementById("seiromaAttn");
+        let reg = /^[a-zA-Z]+$/;
+        if (reg.test(seiromaInput.value)) {
+            seiromaAttn.innerHTML = "";
+            errorcode5 = 0;
+        } else {
+            seiromaAttn.innerHTML = "ローマ字で入力してください";
+            errorcode5 = 1
+        }
+    }
+    meiromaInput.onblur = function () {
+        let meiromaAttn = document.getElementById("meiromaAttn");
+        let reg = /^[a-zA-Z]+$/;
+        if (reg.test(meiromaInput.value)) {
+            meiromaAttn.innerHTML = "";
+            errorcode6 = 0;
+        } else {
+            meiromaAttn.innerHTML = "ローマ字で入力してください";
+            errorcode6 = 1
+        }
+    }
+    telInput.onblur = function () {
+        if(!telInput.value){
+            telAttn.innerHTML = "";
+            return
+        }else{
+            let telAttn = document.getElementById("telAttn");
+            let reg = /^0[789]0[0-9]{4}[0-9]{4}$/;
+            if (reg.test(telInput.value)) {
+                telAttn.innerHTML = "";
+                errorcode7 = 0;
+            } else {
+                telAttn.innerHTML = "正しい電話番号を入力してください";
+                errorcode7 = 1
+            }
+        }
+    }
+
+    phoneInput.onblur = function () {
+        let phoneAttn = document.getElementById("phoneAttn");
+        let reg = /^0[789]0[0-9]{4}[0-9]{4}$/;
+        if (reg.test(phoneInput.value)) {
+            phoneAttn.innerHTML = "";
+            errorcode8 = 0;
+        } else {
+            phoneAttn.innerHTML = "正しい携帯電話を入力してください";
+            errorcode8 = 1
+        }
+    }
+
+    //
+    birthInput.onchange = function () {
+        let birthInput = document.getElementById("birth");
+        let birthAttn = document.getElementById("birthAttn")
+        let today = new Date();
+        let birthDate = new Date(birthInput.value);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        if (birthInput.value){
+            birthAttn.innerHTML = "";
+            errorcode9 = 0;
+            if (today.getMonth() < birthDate.getMonth() ||
+                today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate()){
+                age--;
+            }
+            if (age < 0){
+                errorcode9 = 1;
+                birthAttn.innerHTML = "生年月日で入力してください";
+            }
+        }
+    }
+    // sexsumInput.onchange = function (){
+    //     let sexsumInput = document.querySelector('input[name="sex"]:checked')
+    //     let sexAttn = document.getElementById("sexAttn")
+    //     if (sexsumInput){
+    //         sexAttn.innerHTML = ""
+    //     }
+    // }
+    let sexInputs = document.querySelectorAll('input[name="sex"]');
+    sexInputs.forEach(function(input) {
+        input.addEventListener("change", function() {
+            let sexsumInput = document.querySelector('input[name="sex"]:checked')
+            let sexAttn = document.getElementById("sexAttn")
+            if (sexsumInput){
+                sexAttn.innerHTML = ""
+            }
+        })
+    })
+
+
+    //选择05无职，工作地点栏变灰，无法填信息。
+    //05無職を選択すると、勤務先の名称欄入力できない（灰色になって選択不可）
+    jobInput.onchange=function () {
+        if (jobInput.options[jobInput.selectedIndex].value==="05 無職"){
+            jobAddInput.disabled=true;
+        }else{
+            jobAddInput.disabled=false;
+        }
+    }
+
+
+
+</script>
+
+
+</body>
+</html>
+
+

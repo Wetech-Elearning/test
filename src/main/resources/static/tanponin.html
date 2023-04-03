@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>tanpoAdd</title>
+    <script type="text/javascript" src="js/Jquery.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-image: url("img/background.webp");
+        }
+        .header{
+            font-size: 22px;
+            text-align: center;
+        }
+        .label_question{
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+            align-items: center;
+        }
+        .label_input{
+            display: inline-block;
+        }
+
+        .label_question2{
+            display: inline-block;
+            width: 75px;
+            text-align: right;
+        }
+        .label_question2Right{
+            display: inline-block;
+            width: 300px;
+            text-align: right;
+        }
+        .label_name{
+            display: inline-block;
+            width: 100px;
+            text-align: center;
+        }
+        .label_nameIn{
+            display: inline-block;
+            text-align: center;
+        }
+        .answer{
+            display: inline;
+            position: relative;
+        }
+        select{
+            display: inline-block;
+            width: 250px;
+            left: 320px;
+            text-align: center;
+        }
+        .span_attention{
+            position: absolute;
+            width: 250px;
+            color: red;
+            text-align: left;
+        }
+        .button1{
+            width: 65px;
+            height: 30px;
+            line-height: 15px;
+            background: grey;
+            color: black;
+            font-size: 13px;
+            text-align: center;
+            border: none;
+            margin-left: 150px;
+        }
+        .button2{
+            width: 100px;
+            height: 30px;
+            line-height: 15px;
+            background: aqua;
+            color: black;
+            font-size: 13px;
+            border-radius: 13px/40px;
+            text-align: center;
+            border: none;
+            margin-right: 100px;
+            margin-left: 100px;
+        }
+        .submit{
+            text-align: center;
+        }
+        .span_count{
+            position: absolute;
+            margin-left: 0px;
+            color: red;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="header">
+    <h2>担保人基本情報</h2>
+</div>
+<form>
+    <span class="span_attention" id="user"></span>
+    <br><br>
+
+    <!-- 担保提供物 -->
+    <label class="label_question">担保提供物</label>
+    <select name="tanpoMono" id="tanpoMono">
+        <option selected>--担保提供物を選択してください--</option>
+        <option value="01 建物のみ">01 建物のみ</option>
+        <option value="02 土地のみ">02 土地のみ</option>
+        <option value="03 建物・土地">03 建物・土地</option>
+    </select>
+    <span class="span_attention" id="tanpoMonoAttn"></span>
+    <br><br>
+
+
+    <!-- 氏名 -->
+    <label class="label_name">氏名</label>
+    <label class="label_nameIn">
+        <!-- 姓 -->
+    <div class="answer">
+        <label class="label_input">
+            <label class="label_question2">姓：</label>
+            <input type="text" name="nameSei" id="nameSei" size="25" placeholder="姓を入力してください" maxlength="40">
+            <span class="span_attention" id="nameSeiAttn"></span>
+        </label>
+    </div>
+        <!-- 名 -->
+    <div class="answer">
+        <label class="label_input">
+            <label class="label_question2Right">名：</label>
+            <input type="text" name="nameMei" id="nameMei" size="25" placeholder="名を入力してください" maxlength="40">
+            <span class="span_attention" id="nameMeiAttn"></span>
+        </label>
+    </div>
+
+    <br>
+        <!-- 姓(カナ) -->
+    <div class="answer">
+        <label class="label_input">
+            <label class="label_question2">姓(カナ):</label>
+            <input type="text" name="nameSeiKana" id="nameSeiKana" size="25" placeholder="姓(カナ)を入力してください" maxlength="40">
+            <span class="span_attention" id="nameSeiKanaAttn"></span>
+        </label>
+    </div>
+        <!-- 名(カナ) -->
+    <div class="answer">
+        <label class="label_input">
+            <label class="label_question2Right">名(カナ):</label>
+            <input type="text" name="nameMeiKana" id="nameMeiKana" size="25" placeholder="名(カナ)を入力してください" maxlength="40">
+            <span class="span_attention" id="nameMeiKanaAttn"></span>
+        </label>
+    </div>
+    </label>
+    <br><br>
+    <!-- 検索ボタン -->
+<!--    <br><br>-->
+<!--    <button type="button" class="button1" id="search_Button">検索</button>-->
+<!--    <br><br>-->
+
+
+    <!-- 性别 -->
+    <label class="label_question">性别</label>
+    <label>
+        <select name="sex" id="sex">
+            <option selected>--性别を選択してください--</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </label>
+    <span class="span_attention" id="sexAttn"></span>
+    <br><br>
+
+    <!-- 生日年月 -->
+    <label class="label_question">生日年月</label>
+    <div class="label_input">
+        <input type="date" name="birth" id="birth">
+        <span class="span_attention" id="birthAttn"></span>
+    </div>
+    <br><br>
+    <!-- 年齢 -->
+    <label class="label_question">年齢</label>
+    <div class="label_input">
+        <input type="text" name="age" id="age" maxlength="10">
+        <span class="span_attention" id="ageAttn"></span>
+    </div>
+    <br><br>
+
+
+    <!-- 担保者となる理由 -->
+    <label class="label_question">担保者となる理由</label>
+    <div class="label_input">
+        <input type="checkbox" name="guarantorReason" value="01 親子リレー返済">01 親子リレー返済
+        <input type="checkbox" name="guarantorReason" value="02 収入合算（同居親族）">02 収入合算（同居親族）
+        <input type="checkbox" name="guarantorReason" value="03 収入合算（非同居直系親族）">03 収入合算（非同居直系親族）
+        <input type="checkbox" name="guarantorReason" value="04 その他">04 その他
+        <span class="span_attention" id="guarantorReasonAttn"></span>
+    </div>
+    <br><br>
+
+
+    <!-- 申請者と関係 -->
+    <label class="label_question">申請者と関係</label>
+    <select name="applicantRelationship" id="applicantRelationship" style="width: 270px;">
+        <option selected>--申請者との関係を選択してください--</option>
+        <option value="配偶者">配偶者</option>
+        <option value="婚約者">婚約者</option>
+        <option value="親">親</option>
+        <option value="子">子</option>
+        <option value="その他">その他</option>
+    </select>
+    <span class="span_attention" id="applicantRelationshipAttn"></span>
+    <br><br>
+
+
+    <!-- 個人申請者と同じ -->
+    <label class="label_question">個人申請者と同じ</label>
+    <label>
+        <input type="radio" name="same" id="sameYes"
+               value="01 同居">01 同居
+    </label>
+    <label>
+        <input type="radio" name="same" id="sameNot"
+               value="02 別居">02 別居
+    </label>
+    <span class="span_attention" id="sameAttn"></span>
+    <br><br>
+
+    <!-- 携帯電話 -->
+    <label class="label_question">携帯電話</label>
+    <div class="answer">
+        <input type="text" name="phone" id="phone"  size="25" placeholder="携帯電話を入力してください" maxlength="15">
+        <span class="span_attention" id="phoneAttn"></span>
+    </div>
+    <br><br>
+
+    <!-- 職業 -->
+    <label class="label_question">職業</label>
+    <select name="honninShokugyoCode" id="honninShokugyoCode">
+        <option selected>--職業を選択してください--</option>
+        <option value="01 自営業">01 自営業</option>
+        <option value="02 パート、アルバイト">02 パート、アルバイト</option>
+        <option value="03 公務員">03 公務員</option>
+        <option value="04 会社員">04 会社員</option>
+        <option value="05 その他">05 その他</option>
+        <option value="06 無職">06 無職</option>
+    </select>
+    <span class="span_attention" id="honninShokugyoCodeAttn"></span>
+    <br><br>
+
+
+    <!-- 勤務先の名称 -->
+    <label class="label_question">勤務先の名称</label>
+    <div class="label_input">
+        <input type="text" name="honninKinmusakiName" id="honninKinmusakiName" maxlength="40">
+        <span class="span_attention" id="honninKinmusakiNameAttn"></span>
+    </div>
+    <br><br>
+
+    <!-- 担保理由 -->
+    <div>
+    <label style="display: inline-block; text-align: center; width: 150px; height: 100px; position: relative;">
+        担保理由(50文字以上～200文字未満で具体的にわかりやすい表現で記述してください)</label>
+        <input type="text" name="reason" id="reason" maxlength="255"
+               style="width: 400px; height: 100px; position: absolute ">
+    </div>
+        <!-- 一時保存ボタン -->
+    <button type="button" class="button1" id="tempSave_Button" >一時保存</button>
+    <span class="span_count" id="reasonAttn"></span>
+    <br><br>
+    <br><br>
+
+    <!--ボタン-->
+    <div class="submit">
+        <button type="button" class="button2" id="return_Button">戻る</button>
+        <button type="button" class="button2" id="next_Button" >次へ</button>
+    </div>
+
+</form>
+
+<script>
+    <!-- フォームの入力入力フィールドを取得する -->
+    let tanpoMonoInput = document.getElementById("tanpoMono")
+    let nameSeiInput = document.getElementById("nameSei")
+    let nameMeiInput = document.getElementById("nameMei")
+    let nameSeiKanaInput = document.getElementById("nameSeiKana")
+    let nameMeiKanaInput = document.getElementById("nameMeiKana")
+    let sexInput = document.getElementById("sex")
+    let birthDateInput = document.getElementById("birth")
+    let ageInput = document.getElementById("age")
+    let guarantorReasonInput = document.getElementsByName("guarantorReason")
+    let applicantRelationshipInput = document.getElementById("applicantRelationship")
+    let sameSetInput = document.getElementsByName("sameSet")
+        let sameYes = document.getElementById("sameYes")
+        let sameNot = document.getElementById("sameNot")
+    let phoneInput = document.getElementById("phone")
+    let honninShokugyoCodeInput = document.getElementById("honninShokugyoCode")
+    let honninKinmusakiNameInput = document.getElementById("honninKinmusakiName")
+    let reasonInput = document.getElementById("reason")
+    let tempSaveButton = document.getElementById("tempSave_Button")
+    let returnButton = document.getElementById("return_Button")
+    let nextButton = document.getElementById("next_Button")
+    let searchButton = document.getElementById("search_Button")
+    let errorcode = 0
+
+
+
+    <!-- 一時保存ボタンクリックイベント -->
+    tempSaveButton.addEventListener("click",() => {
+        localStorage.setItem("reasonInputTemop",reasonInput.value)
+        console.log(localStorage.getItem("reasonInputTemop"))
+
+        console.log(reasonInput.value);
+        }
+    )
+
+    reasonInput.value = localStorage.getItem("reasonInputTemop");
+    reasonAttn.innerHTML = reasonInput.value.length + "文字";
+    <!-- 戻るボタンクリックイベント -->
+    returnButton.addEventListener("click",() => {
+            window.location.href = "add.html";
+    }
+    )
+    <!-- 次へボタンクリックイベント -->
+    nextButton.addEventListener("click",() => {
+
+        <!-- 入力フィールドの値を取得する -->
+        let tanpoMono = tanpoMonoInput.value.trim()
+        let nameSei = nameSeiInput.value.trim()
+        let nameMei = nameMeiInput.value.trim()
+        let nameSeiKana = nameSeiKanaInput.value.trim()
+        let nameMeiKana = nameMeiKanaInput.value.trim()
+        let sex = sexInput.value.trim()
+        let birthDate = birthDateInput.value.trim()
+        let age = ageInput.value.trim()
+        let guarantorReason
+        {
+            let checkboxes = document.getElementsByName("guarantorReason");
+            let selectedValues = [];
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedValues.push(checkboxes[i].value);
+                    guarantorReason = JSON.stringify(selectedValues);
+                }
+            }
+        }
+        let applicantRelationship = applicantRelationshipInput.value.trim()
+        let same
+        {
+            let checkboxes = document.getElementsByName("same");
+            let selectedValues = [];
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedValues.push(checkboxes[i].value);
+                    same = JSON.stringify(selectedValues);
+                }
+            }
+        }
+        let phone = phoneInput.value.trim()
+        let honninShokugyoCode = honninShokugyoCodeInput.value.trim()
+        let honninKinmusakiName = honninKinmusakiNameInput.value.trim()
+        let reason = reasonInput.value.trim()
+        if(errorcode === 1) {
+            alert("正しく入力してください")
+            return;
+        }
+            if (!tanpoMono || tanpoMonoInput.value === "--担保提供物を選択してください--"){
+                alert("担保提供物を選択してください")
+                return
+            }
+            if (!nameSei){
+                alert("姓を入力してください")
+                return
+            }
+            if (!nameMei){
+                alert("名を入力してください")
+                return
+            }
+            if (!nameSeiKana){
+                alert("姓（カナ）を入力してください")
+                return
+            }
+            if (!nameMeiKana){
+                alert("名（カナ）を入力してください")
+                return
+            }
+            if (!sex || sexInput.value === "--性别を選択してください--"){
+                alert("性別を入力してください")
+                return
+            }
+            if (!birthDate){
+                alert("生日年月を選択してください")
+                return
+            }
+            if (!age){
+                alert("生日年月を選択してください")
+                return
+            }
+            if (!guarantorReason){
+                alert("担保者となる理由を選択してください")
+                return
+            }
+            if (!applicantRelationship || applicantRelationshipInput.value === "--申請者との関係を選択してください--"){
+                alert("申請者と関係を選択してください")
+                return
+            }
+            if (!same){
+                alert("個人申請者と同じを選択してください")
+                return
+            }
+            if (!phone){
+                alert("携帯電話を入力してください")
+                return
+            }
+            if (!honninShokugyoCode || honninShokugyoCodeInput.value === "--職業を選択してください--"){
+                alert("職業を選択してください")
+                return
+            }
+            if (!reasonInput){
+                alert("担保理由を入力してください")
+                return
+            }
+            if (reasonInput.value.length > 200){
+                alert("担保理由を200文字内で入力してください")
+                return
+            }
+            if (reasonInput.value.length < 50){
+                alert("担保理由を50文字以上で入力してください")
+                return
+            }
+
+        fetch("tanponin/tanponinSave",{
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+             body: JSON.stringify({tanpoMono,nameSei,nameMei,nameSeiKana,nameMeiKana,sex,
+                 birthDate,age,guarantorReason,applicantRelationship,same,
+                 phone,honninShokugyoCode,honninKinmusakiName,reason})
+            }
+        )
+            .then(response => {
+                console.log(response);
+                if (response.ok){
+                    alert("保存成功");
+                    window.location.href = "shienshinse.html";
+                }else {
+                    return response.text().then(text => {
+                        console.log(text);
+                        throw new Error(text);
+                    })
+                        .catch(error => {
+                            alert("エラー" + error.message);
+                        })
+                }
+            }
+            )
+    }
+    )
+
+       //担保提供物 イベント
+    tanpoMonoInput.onblur = function (){
+        let tanpoMonoInput = document.getElementById("tanpoMono");
+        let tanpoMonoAttn = document.getElementById("tanpoMonoAttn");
+        if (tanpoMonoInput.value === "--担保提供物を選択してください--" || !tanpoMonoInput.value) {
+            tanpoMonoAttn.innerHTML = "担保提供物を選択してください";
+            errorcode = 1;
+        } else {
+            tanpoMonoAttn.innerHTML = "";
+            errorcode = 0;
+        }
+    }
+      //氏名 イベント
+    nameSeiInput.onblur = function () {
+        let nameSeiAttn = document.getElementById("nameSeiAttn");
+        if (!nameSeiInput.value.trim()) {
+            nameSeiAttn.innerHTML = "姓を入力してください";
+            errorcode = 1;
+        } else {
+            nameSeiAttn.innerHTML = "";
+            errorcode = 0;
+        }
+    }
+    nameMeiInput.onblur = function () {
+        let nameMeiAttn = document.getElementById("nameMeiAttn");
+        if (!nameMeiInput.value.trim()) {
+            nameMeiAttn.innerHTML = "名を入力してください";
+            errorcode = 1;
+        } else {
+            nameMeiAttn.innerHTML = "";
+            errorcode = 0;
+        }
+    }
+    nameSeiKanaInput.onblur = function () {
+        let nameSeiKanaAttn = document.getElementById("nameSeiKanaAttn");
+        let reg = /^[ァ-ヴー]+$/;
+        if (reg.test(nameSeiKanaInput.value)) {
+            nameSeiKanaAttn.innerHTML = "";
+            errorcode = 0;
+        } else {
+            nameSeiKanaAttn.innerHTML = "カタカナで入力してください";
+            errorcode = 1;
+        }
+    }
+    nameMeiKanaInput.onblur = function () {
+        let nameMeiKanaAttn = document.getElementById("nameMeiKanaAttn");
+        let reg = /^[ァ-ヴー]+$/;
+        if (reg.test(nameMeiKanaInput.value)) {
+            nameMeiKanaAttn.innerHTML = "";
+            errorcode = 0;
+        } else {
+            nameMeiKanaAttn.innerHTML = "カタカナで入力してください";
+            errorcode = 1;
+        }
+    }
+    　　　//性別　イベント
+    sexInput.onchange = function (){
+        let sexInput = document.getElementById("sex");
+        let sexAttn = document.getElementById("sexAttn");
+        if (sexInput.value === "--性别を選択してください--" || !sexInput.value) {
+            sexAttn.innerHTML = "性别を選択してください";
+            errorcode = 1;
+        } else {
+            sexAttn.innerHTML = "";
+            errorcode = 0;
+        }
+    }
+       //生日年月　イベント
+            //年齢計算
+    birthDateInput.onchange = function () {
+        let birthAttn = document.getElementById("birthAttn")
+        let birthDateInput = document.getElementById("birth");
+        let ageInput = document.getElementById("age");
+        let today = new Date();
+        let birthDate = new Date(birthDateInput.value);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        if (birthDateInput.value){
+            ageInput.disabled = false;
+            ageInput.value = "";
+            birthAttn.innerHTML = "";
+            if (today.getMonth() < birthDate.getMonth() ||
+                today.getMonth() == birthDate.getMonth() && today.getDate() < birthDate.getDate()){
+                age--;
+                errorcode = 0;
+            }
+            if (age < 0){
+                errorcode = 1;
+                return birthAttn.innerHTML = "正し生年月日を選択してください";
+            }
+            ageInput.value = age;
+            ageInput.disabled = true;
+        }
+    }
+      //申請者と関係　イベント
+    applicantRelationshipInput.onchange = function (){
+        let applicantRelationshipInput = document.getElementById("applicantRelationship");
+        let applicantRelationshipAttn = document.getElementById("applicantRelationshipAttn");
+        if (applicantRelationshipInput.value === "--申請者との関係を選択してください--" || !applicantRelationshipInput.value) {
+            applicantRelationshipAttn.innerHTML = "申請者との関係を選択してください";
+            errorcode = 1;
+        } else {
+            applicantRelationshipAttn.innerHTML = "";
+            errorcode = 0;
+        }
+    }
+       //申請者との関係選択 イベント
+    sameYes.onchange = function () {
+        let phoneInput = document.getElementById("phone")
+        let honninKinmusakiNameInput = document.getElementById("honninKinmusakiName")
+        let phoneAttn = document.getElementById("phoneAttn")
+        let id = localStorage.getItem("id")
+        phoneAttn.innerHTML = "";
+        console.log(id)
+        fetch("user/search",{
+            method: "post",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(id)
+        })
+            .then(response => response.json())
+            .then(user =>{
+                console.log(user);
+                let phone = user.phone;
+                let honninKinmusakiName = user.kinmusakiName;
+                console.log(phone);
+                console.log(honninKinmusakiName);
+                phoneInput.value  = phone;
+                honninKinmusakiNameInput.value = honninKinmusakiName;
+            }
+        )
+        phoneInput.disabled = true;
+        honninKinmusakiNameInput.disabled = true;
+    }
+    sameNot.onchange = function () {
+        let phoneInput = document.getElementById("phone");
+        let honninKinmusakiNameInput = document.getElementById("honninKinmusakiName");
+        phoneInput.disabled = false;
+        honninKinmusakiNameInput.disabled = false;
+        phoneInput.value  = "";
+        honninKinmusakiNameInput.value = "";
+    }
+
+       //担保者となる理由 イベント
+    // guarantorReasonInput.onchange = function (){
+    //     let guarantorReasonInput = document.getElementsByName("guarantorReason");
+    //     let guarantorReasonAttn = document.getElementById("guarantorReasonAttn");
+    //     if (!guarantorReasonInput){
+    //         guarantorReasonAttn.innerHTML = "担保者となる理由を選択してください";
+    //     }else{
+    //         guarantorReasonAttn.innerHTML = "";
+    //     }
+    // }
+
+      // 携帯電話 イベント
+    phoneInput.onblur = function () {
+        let phoneInput = document.getElementById("phone");
+        let phoneAttn = document.getElementById("phoneAttn");
+        let reg = /^0[789]0[0-9]{4}[0-9]{4}$/;
+        if (reg.test(phoneInput.value)) {
+            phoneAttn.innerHTML = "";
+            errorcode = 0;
+        } else {
+            phoneAttn.innerHTML = "携帯電話で入力してください";
+            errorcode = 1
+        }
+    }
+    // honninKinmusakiNameInput.onblur = function (){
+    //     let honninKinmusakiNameInput = document.getElementById("honninKinmusakiName");
+    //     let honninKinmusakiNameAttn = document.getElementById("honninKinmusakiNameAttn")
+    //     if (!honninKinmusakiNameInput.value){
+    //         honninKinmusakiNameAttn.innerHTML = "勤務先の名称を入力してください";
+    //     }else{
+    //         honninKinmusakiNameAttn.innerHTML = "";
+    //     }
+    // }
+
+        //担保理由 イベント
+    reasonInput.onblur = function (){
+        let reasonInput = document.getElementById("reason");
+        let reasonAttn = document.getElementById("reasonAttn")
+        if (!reasonInput.value){
+            reasonAttn.innerHTML = "担保理由を入力してください";
+            errorcode = 1;
+        }
+    }
+
+
+    //担保理由文字計数
+    reasonInput.oninput = function (){
+        let reasonInput = document.getElementById("reason");
+        let reasonAttn = document.getElementById("reasonAttn")
+        reasonAttn.innerHTML = reasonInput.value.length + "文字";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>shienshinse</title>
+    <script type="text/javascript" src="js/Jquery.js"></script>
+</head>
+
+<style>
+    .bar{
+        display: inline;
+        position: relative; /* 设置绝对定位 */
+
+    }
+
+    .rectangle{
+        /*width: 230px;*/
+        /*height: 40px;*/
+        /*background-color: mediumaquamarine;*/
+        /*display: inline-block;*/
+        /*font-size: 20px;*/
+        /*color: black;*/
+        /*text-align: center;*/
+        /*line-height: 50px;*/
+        /*margin-left: 50px;*/
+
+        /* 设置高度和宽度 */
+        width: 230px;
+        height: 50px;
+
+        /* 设置背景颜色 */
+        background-color: mediumaquamarine;
+
+        /* 设置溢出隐藏 */
+        overflow: hidden;
+
+        /* 设置显示为 inline-block */
+        display: inline-block;
+
+        /* 设置文字大小和颜色 */
+        font-size: 20px;
+        color: black;
+
+        /* 设置文字垂直和水平居中 */
+        line-height: 50px; /* 注意这里的值应与高度相同 */
+        text-align: center;
+    }
+
+    .triangle {
+        /* 设定div大小 */
+        width:0;
+        height:0;
+        /* 防溢出，稳固兼容性 */
+        overflow:hidden;
+        /* 箭头尺寸 */
+        border-width:25px;
+        /* 给箭头着色，四个值分别是边框的四个方向，箭头的方向正好相反 */
+        /* top,right,bottom,left */
+        border-color:transparent transparent transparent mediumaquamarine;
+        /* 为了兼容性，最好把四个值都补上，需要的方向设实线，其他方向虚线 */
+        border-style:dashed dashed dashed dashed;
+        display: inline-block;
+
+    }
+
+    table{
+        border-collapse: collapse;
+    }
+
+    td, th {
+        border: 1px solid rgba(128, 128, 128, 0.5);
+        padding: 5px;
+        vertical-align: middle;
+    }
+
+    td.label_1{
+        width: 200px;
+    }
+
+    .label_2{
+        width: 50px;
+        display: inline-block;
+        text-align: right;
+    }
+
+    .output{
+        width: 130px;
+        display: inline-block;
+        text-align: left;
+    }
+
+
+
+
+</style>
+
+<body>
+<form>
+    <div style="width: 1500px;">
+        <h2>
+            <div class = "bar" id="user_div">
+                <div class = "rectangle" id = "user_bar">個人情報</div><div class="triangle" id="user_bar1"></div>
+            </div>
+
+            <div class = "bar" id="tanponin_div">
+                <div class = "rectangle" id = "tanponin_bar">担保者</div><div class="triangle" id="tanponin_bar1"></div>
+            </div>
+
+            <div class = "bar" id="shienshinse_div">
+                <div class = "rectangle" id = "shienshinse_bar">被災住宅金融支援申請</div><div class="triangle" id="shienshinse_bar1"></div>
+            </div>
+
+            <div class = "bar" id="all_div">
+                <div class = "rectangle" id="all_bar">申請情報一覧</div><div class="triangle" id="all_bar1"></div>
+            </div>
+        </h2>
+
+        <!----------------------- 個人情報 ----------------------->
+        <table id = "user" style="width: 800px;">
+            <tr>
+                <td class = "label_1">氏名(漢字)</td>
+                <td>
+                    <label class="label_2">姓:</label><span class="output" id="user1"></span>
+                    <label class="label_2">名:</label><span class="output" id="user2"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">氏名(カタカナ)</td>
+                <td>
+                    <label class="label_2">セイ:</label><span class="output" id="user3"></span>
+                    <label class="label_2">メイ:</label><span class="output" id="user4"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">氏名(ローマ字)</td>
+                <td>
+                    <label class="label_2">姓:</label><span class="output" id="user5"></span>
+                    <label class="label_2">名:</label><span class="output" id="user6"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">国籍</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user7"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">生年月日</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user8"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">性別</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user9"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class = "label_1">電話番号</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user10"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">携帯電話</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user11"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class = "label_1">職業</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user12"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">勤務先</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="user13"></span>
+                </td>
+            </tr>
+
+        </table>
+
+        <!----------------------- 担保者 ------------------------>
+        <table id = "tanponin" style="width: 800px;">
+            <tr>
+                <td class = "label_1">担保提供物</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin1"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class = "label_1">氏名</td>
+                <td>
+                    <label class="label_2">姓:</label><span class="output" id="tanponin2"></span>
+                    <label class="label_2">名:</label><span class="output" id="tanponin3"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">氏名(カタカナ)</td>
+                <td>
+                    <label class="label_2">セイ:</label><span class="output" id="tanponin4"></span>
+                    <label class="label_2">メイ:</label><span class="output" id="tanponin5"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">性别</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin6"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">生日年月</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin7"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">年齢</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin8"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">担保者となる理由</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin9"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">申請者と関係</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin10"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class = "label_1">個人申請者と同じ</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin11"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">携帯電話</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin12"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class = "label_1">職業</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin13"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">勤務先</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin14"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">担保理由</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="tanponin15"></span>
+                </td>
+            </tr>
+
+
+        </table>
+
+        <!----------------------- 被災住宅金融支援申請 ----------------------->
+
+        <table id ="shienshinse" style="width: 800px;">
+            <tr>
+                <td class = "label_1">被災住宅の種類</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse1"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">被災住宅の所有等</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse2"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">被害状況</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse3"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">被災住宅の修理が不能又は困難である</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse4"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">敷地の面積（㎡）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse5"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_敷地（所在地）_都道府県</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse6"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_敷地（所在地）_市郡</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse7"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_敷地（所在地）_町村</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse8"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_敷地（所在地）_番地</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse9"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_敷地（所在地）_郵便番号</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse10"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">防災集団移転事業に係る住宅再建を行う</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse11"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">敷地の所有関係</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse12"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">建物の床面積_住宅部分</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse13"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">建物の床面積_非住宅部分</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse14"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">建物の構造（戸建形式）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse15"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">建て方</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse16"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">入居予定年（年）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse17"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">入居予定月（月）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse18"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">住宅の用途</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse19"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_工事完了予定年月_年</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse20"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">物件_工事完了予定年月_月</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse21"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">資金の受取予定年月_土地先行資金_年</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse22"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">資金の受取予定年月_土地先行資金_月</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse23"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">資金の受取予定年月_中間資金_年</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse24"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">資金の受取予定年月_中間資金_月</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse25"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">資金の受取予定年月_最終資金_年</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse26"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">資金の受取予定年月_最終資金_月</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse27"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">会社名称</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse28"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">仲介業者又は販売代理_名称（カナ）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse29"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">仲介業者又は販売代理_担当者名_名</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse30"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">仲介業者又は販売代理_担当者名_姓</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse31"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">建設費</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse32"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">土地取得費</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse33"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">費用合計</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse34"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">借入希望額_借入金額</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse35"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">借入希望額_金利</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse36"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">借入希望額_返済期間</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse37"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">返済方法</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse38"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">借入希望額_年間返済額の1/12</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse39"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">被災親族同居の有無</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse40"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">据置期間の年数</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse41"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">その他_借入金額（万円）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse42"></span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class = "label_1">その他_返済期間（年）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse43"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">その他_年間返済額の1/12</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse44"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">建設に要する費用（再掲）</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse45"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">災害融資の借入希望額、その他の借入内容</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse46"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">金融機関名</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse47"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class = "label_1">支店名</td>
+                <td>
+                    <label class="label_2"></label><span class="output" id="shienshinse48"></span>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+    <button type="button" id="back" style="margin: auto;">戻る</button>
+    <button type="button" id="submit" style="margin: auto;">登録</button>
+
+
+
+</form>
+
+
+
+
+
+
+</body>
+
+<script type="module">
+    // const table = document.querySelector('.shienshinse'); // 获取表格元素
+    // const rows = table.getElementsByTagName('tr'); // 获取所有行元素
+    //
+    // for (let i = 0; i < rows.length; i++) {
+    //     const cells = rows[i].getElementsByTagName('td'); // 获取该行下的所有单元格元素
+    //     for (let j = 0; j < cells.length; j++) {
+    //         const label = cells[j].querySelector('.label_2'); // 获取该单元格下的 label 元素
+    //         const output = cells[j].querySelector('.output'); // 获取该单元格下的 output 元素
+    //
+    //         if (label) {
+    //             label.setAttribute('for', `cell-${i}-${j}`); // 为 label 元素设置 for 属性
+    //         }
+    //
+    //         if (output) {
+    //             output.id = `cell-${i}-${j}`; // 为 output 元素设置 id 属性
+    //         }
+    //     }
+    // }
+
+    // const userDate = (function() {
+    //     const users = {};
+    //
+    //     for (let i = 1; i <= 13; i++) {
+    //         users["user" + i] = document.getElementById(`user${i}`);
+    //     }
+    //
+    //     return {
+    //         getUsers: function() {
+    //             return users;
+    //         }
+    //     };
+    // })();
+    //
+    // userDate.getUsers()["user3"].innerHTML = "2312312"
+
+
+    //
+    //
+    // const id = localStorage.getItem("id");
+    // const users = [];
+    // for (let i = 1; i <= 13; i++) {
+    //     const userElement = document.getElementById(`user${i}`);
+    //     users.push({ id: i, element: userElement });
+    // }
+    //
+
+    // for (let i = 1; i <= 13; i++) {
+    //     users[`user${i}`] = document.getElementById(`user${i}`);
+    // }
+
+    function updateUser (id, user = {}, sortedKeys = [], elementId){
+        fetch(`${elementId}/search`,{
+            method: "post",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(id)
+        })
+            .then(response => response.json())
+            .then(newfound =>{
+                    let i = 1;
+                    for (const key of sortedKeys) {
+                        if (newfound.hasOwnProperty(key)) {
+                            user[`user${i}`] = document.getElementById(`${elementId}${i}`);
+                            user[`user${i}`].innerHTML = newfound[key];
+                            console.log(i,newfound[key])
+                            i++;
+
+                        }
+                    }
+
+                }
+            ).catch(error => {
+            alert(error);
+
+        })
+
+    }
+
+
+    const id = localStorage.getItem("id");
+
+
+    const users = {};
+    const userKeys = [
+        "nameSei",
+        "nameMei",
+        "nameSeiKana",
+        "nameMeiKana",
+        "alphLastname",
+        "alphFirstname",
+        "country",
+        "birthdate",
+        "sex",
+        "tel",
+        "phone",
+        "shokugyoCode",
+        "kinmusakiName"];
+
+    updateUser (id, users, userKeys, "user");
+
+
+    const tanponin = {};
+    const tanponinKeys = [
+        "tanpoMono",
+        "nameSei",
+        "nameMei",
+        "nameSeiKana",
+        "nameMeiKana",
+        "sex",
+        "birthDate",
+        "age",
+        "guarantorReason",
+        "applicantRelationship",
+        "same",
+        "phone",
+        "honninShokugyoCode",
+        "honninKinmusakiName",
+        "reason"];
+
+    updateUser (id, tanponin, tanponinKeys, "tanponin");
+
+
+    const shienshinse = {};
+    const shienshinseKeys = [
+        "shienshinse",
+        "hisaijutakuShurui",
+        "hisaijutakuShoyuu",
+        "higaiJokyo",
+        "higaiJokyoDaikiboHankaiOrHankai",
+        "bukken_Menseki",
+        "bukkenAddressTodofuken",
+        "bukkenAddressShigun",
+        "bukkenAddressChoson",
+        "bukkenAddressBanchi",
+        "bukkenAddressPostCode3",
+        "bousaiSyudanItenJigyo",
+        "bukkenShikichiNoShoyuKankei",
+        "bukken_Tatemono_Jutaku",
+        "bukken_Tatemono_HiJutaku",
+        "bukken_Kozo",
+        "bukken_TatekataKodateKeishiki",
+        "nyukyoYoteiDateYear",
+        "nyukyoYoteiDateMonth",
+        "jutakuYoto",
+        "bukken_KojiKanryoDate_Year",
+        "bukken_KojiKanryoDate_Month",
+        "shikinDateTochiShikinYear",
+        "shikinDateTochiShikinMonth",
+        "shikinDateChukanShikinYear",
+        "shikinDateChukanShikinMonth",
+        "shikinDateSaishuShikinYear",
+        "shikinDateSaishuShikinMonth",
+        "kariireIninKaishaName",
+        "chukaiHanbaiNameKana",
+        "chukaiHanbaiTantoshaNameMei",
+        "chukaiHanbaiTantoshaNameSei",
+        "hiyouKensetsuHi",
+        "hiyouTochiSyotokuHi",
+        "hiyouTotal",
+        "kariireGakuKingaku",
+        "kariireGakuKinri",
+        "kariireGakuHensaiKikan",
+        "hensaiHouhou",
+        "kariireGakuNenHensai12No1",
+        "hisaiShinzokuDokyoAri",
+        "sueokiKikanNoNensu",
+        "sonotaName",
+        "sonotaKingaku",
+        "sonotaHensaiKikan",
+        "sonotaNenHensai12No1",
+        "sogoKingaku",
+        "kinyuKikanName",
+        "shitemName"
+    ];
+
+    updateUser (id, shienshinse, shienshinseKeys, "shienshinse");
+
+
+    const user_div = document.getElementById("user_div");
+    const tanponin_div = document.getElementById("tanponin_div");
+    const shienshinse_div = document.getElementById("shienshinse_div");
+    const all_div = document.getElementById("all_div");
+
+    const user_table = document.getElementById("user");
+    const tanponin_table = document.getElementById("tanponin");
+    const shienshinse_table = document.getElementById("shienshinse")
+
+    const user_bar = document.getElementById("user_bar")
+    const tanponin_bar = document.getElementById("tanponin_bar")
+    const shienshinse_bar = document.getElementById("shienshinse_bar")
+
+    const user_bar1 = document.getElementById("user_bar1")
+    const tanponin_bar1 = document.getElementById("tanponin_bar1")
+    const shienshinse_bar1 = document.getElementById("shienshinse_bar1")
+    const all_bar = document.getElementById("all_bar")
+    const all_bar1 = document.getElementById("all_bar1")
+
+    user_div.addEventListener("click", function () {
+        user_table.style.display = "block";
+        user_table.style.setProperty("width", "800px");
+        tanponin_table.style.display = "none";
+        shienshinse_table.style.display = "none";
+
+        user_bar.style.background = "royalblue";
+        user_bar1.style.cssText += ";border-color:transparent transparent transparent royalblue;";
+        tanponin_bar.style.background = "mediumaquamarine";
+        tanponin_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        shienshinse_bar.style.background = "mediumaquamarine";
+        shienshinse_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        all_bar.style.background = "mediumaquamarine";
+        all_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+
+    })
+
+    tanponin_div.addEventListener("click", function () {
+        user_table.style.display = "none";
+        tanponin_table.style.display = "block";
+        shienshinse_table.style.display = "none";
+
+        user_bar.style.background = "mediumaquamarine";
+        user_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        tanponin_bar.style.background = "royalblue";
+        tanponin_bar1.style.cssText += ";border-color:transparent transparent transparent royalblue;";
+        shienshinse_bar.style.background = "mediumaquamarine";
+        shienshinse_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        all_bar.style.background = "mediumaquamarine";
+        all_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+
+    })
+
+    shienshinse_div.addEventListener("click", function () {
+        user_table.style.display = "none";
+        tanponin_table.style.display = "none";
+        shienshinse_table.style.display = "block";
+
+        user_bar.style.background = "mediumaquamarine";
+        user_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        tanponin_bar.style.background = "mediumaquamarine";
+        tanponin_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        shienshinse_bar.style.background = "royalblue";
+        shienshinse_bar1.style.cssText += ";border-color:transparent transparent transparent royalblue;";
+        all_bar.style.background = "mediumaquamarine";
+        all_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+
+
+    })
+
+    all_div.addEventListener("click", function () {
+        user_table.style.display = "block";
+        tanponin_table.style.display = "block";
+        shienshinse_table.style.display = "block";
+
+        user_bar.style.background = "mediumaquamarine";
+        user_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        tanponin_bar.style.background = "mediumaquamarine";
+        tanponin_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        shienshinse_bar.style.background = "mediumaquamarine";
+        shienshinse_bar1.style.cssText += ";border-color:transparent transparent transparent mediumaquamarine;";
+        all_bar.style.background = "royalblue";
+        all_bar1.style.cssText += ";border-color:transparent transparent transparent royalblue;";
+
+    })
+
+    const back_buutton = document.getElementById("back")
+    const submit_button = document.getElementById("submit")
+
+    back_buutton.addEventListener("click", function (){
+        window.location.href = "shinsejohou.html";
+    })
+
+    submit_button.addEventListener("click", function (){
+        if (window.confirm("申請情報完了")) {
+            alert("申請情報が完了しました");
+
+        }
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+</html>

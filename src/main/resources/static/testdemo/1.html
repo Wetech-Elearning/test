@@ -1,0 +1,17 @@
+<select name="test" id="test" onchange="handleChange()">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+</select>
+
+<script>
+    function handleChange() {
+        const select = document.getElementById("test");
+        const value = select.options[select.selectedIndex].value;
+
+        if (value === "1") alert("1")
+        if (value === "2") alert("2")
+        if (value === "3") alert("3")
+
+    }
+</script>

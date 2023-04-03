@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>shienshinse</title>
+    <script type="text/javascript" src="js/Jquery.js"></script>
+</head>
+<style>
+    table{
+        border-collapse: collapse;
+    }
+    td, th {
+        border: 1px solid rgba(128, 128, 128, 0.5);
+        padding: 5px;
+        vertical-align: middle;
+    }
+    td.attn_td{
+        border: 0px;
+        color: red;
+    }
+    .mark_span{
+        color: red;
+        float: right;
+        margin-left: 50px;
+    }
+    .other_mark_span{
+        color: red;
+        float: right;
+        margin-left: 50px;
+        display: none;
+    }
+    .unit_span{
+        color: black;
+    }
+    .button{
+        position: relative;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+    }
+</style>
+<body>
+
+<form>
+    <table>
+        <tr>
+            <td>申込ID</td>
+            <td><input type="text" id="id" name="id" disabled ></td>
+        </tr>
+        <tr>
+            <td>被災住宅の種類<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="hisaijutakuShurui" name="hisaijutakuShurui">
+                    <option selected>--選択してください--</option>
+                    <option value="マイホーム">マイホーム</option>
+                    <option value="賃貸住宅">賃貸住宅</option>
+                </select>
+            </td>
+            <td class="attn_td" id="hisaijutakuShurui_attn"></td>
+        </tr>
+        <tr>
+            <td>被災住宅の所有等<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="hisaijutakuShoyuu" name="hisaijutakuShoyuu">
+                    <option selected>--選択してください--</option>
+                    <option value="申込本人が所有している">申込本人が所有している</option>
+                    <option value="申込本人が借りている" id="hisaijutakuShoyuu_kari">申込本人が借りている</option>
+                    <option value="上記以外">上記以外</option>
+                </select>
+            </td>
+            <td class="attn_td" id="hisaijutakuShoyuu_attn"></td>
+        </tr>
+        <tr>
+            <td>被害状況<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="higaiJokyo" name="higaiJokyo">
+                    <option selected>--選択してください--</option>
+                    <option value="01全壊">01全壊</option>
+                    <option value="02大規模半壊">02大規模半壊</option>
+                    <option value="03半壊">03半壊</option>
+                    <option value="04避難指示あり">04避難指示あり</option>
+                </select>
+            </td>
+            <td class="attn_td" id="higaiJokyo_attn"></td>
+        </tr>
+        <tr>
+            <td>被災住宅の修理が不能又は困難である</td>
+            <td><input type="checkbox" id="higaiJokyoDaikiboHankaiOrHankai" name="higaiJokyoDaikiboHankaiOrHankai"
+                       value="困難である">困難である</td>
+        </tr>
+        <tr>
+            <td>敷地の面積（㎡）<span class="mark_span">(必須)</span></td>
+            <td>
+                <input type="text" id="bukken_Menseki" name="bukken_Menseki" min="0" maxlength="5">
+                <span class="unit_span">（平方メートル）</span>
+            </td>
+            <td class="attn_td" id="bukken_Menseki_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_敷地（所在地）_都道府県<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="bukkenAddressTodofuken" name="bukkenAddressTodofuken">
+                    <option selected>--選択してください--</option>
+                    <option value="北海道">北海道</option>
+                    <option value="青森県">青森県</option>
+                    <option value="岩手県">岩手県</option>
+                    <option value="宮城県">宮城県</option>
+                    <option value="秋田県">秋田県</option>
+                    <option value="山形県">山形県</option>
+                    <option value="福島県">福島県</option>
+                    <option value="茨城県">茨城県</option>
+                    <option value="栃木県">栃木県</option>
+                    <option value="群馬県">群馬県</option>
+                    <option value="埼玉県">埼玉県</option>
+                    <option value="千葉県">千葉県</option>
+                    <option value="東京都">東京都</option>
+                    <option value="神奈川県">神奈川県</option>
+                    <option value="新潟県">新潟県</option>
+                    <option value="富山県">富山県</option>
+                    <option value="石川県">石川県</option>
+                    <option value="福井県">福井県</option>
+                    <option value="山梨県">山梨県</option>
+                    <option value="長野県">長野県</option>
+                    <option value="岐阜県">岐阜県</option>
+                    <option value="静岡県">静岡県</option>
+                    <option value="愛知県">愛知県</option>
+                    <option value="三重県">三重県</option>
+                    <option value="滋賀県">滋賀県</option>
+                    <option value="京都府">京都府</option>
+                    <option value="大阪府">大阪府</option>
+                    <option value="兵庫県">兵庫県</option>
+                    <option value="奈良県">奈良県</option>
+                    <option value="和歌山県">和歌山県</option>
+                    <option value="鳥取県">鳥取県</option>
+                    <option value="島根県">島根県</option>
+                    <option value="岡山県">岡山県</option>
+                    <option value="広島県">広島県</option>
+                    <option value="山口県">山口県</option>
+                    <option value="徳島県">徳島県</option>
+                    <option value="香川県">香川県</option>
+                    <option value="愛媛県">愛媛県</option>
+                    <option value="高知県">高知県</option>
+                    <option value="福岡県">福岡県</option>
+                    <option value="佐賀県">佐賀県</option>
+                    <option value="長崎県">長崎県</option>
+                    <option value="熊本県">熊本県</option>
+                    <option value="大分県">大分県</option>
+                    <option value="宮崎県">宮崎県</option>
+                    <option value="鹿児島県">鹿児島県</option>
+                    <option value="沖縄県">沖縄県</option>
+                </select>
+            </td>
+            <td class="attn_td" id="bukkenAddressTodofuken_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_敷地（所在地）_市郡</td>
+            <td><input type="text" id="bukkenAddressShigun" name="bukkenAddressShigun" maxlength="255"></td>
+            <td class="attn_td" id="bukkenAddressShigun_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_敷地（所在地）_町村</td>
+            <td><input type="text" id="bukkenAddressChoson" name="bukkenAddressChoson" maxlength="255"></td>
+            <td class="attn_td" id="bukkenAddressChoson_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_敷地（所在地）_番地</td>
+            <td><input type="text" id="bukkenAddressBanchi" name="bukkenAddressBanchi" maxlength="255"></td>
+            <td class="attn_td" id="bukkenAddressBanchi_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_敷地（所在地）_郵便番号:<span class="mark_span">(必須)</span></td>
+            <td>
+                <input type="text" id="bukkenAddressPostCode3" name="bukkenAddressPostCode3" size="8"
+                       maxlength="8" style="width: 80px" oninput="formatPostCode(this);">
+            </td>
+            <td class="attn_td" id="bukkenAddressPostCode3_attn"></td>
+        </tr>
+        <tr>
+            <td>防災集団移転事業に係る住宅再建を行う:</td>
+            <td><input type="checkbox" id="bousaiSyudanItenJigyo" name="bousaiSyudanItenJigyo" value="該当">該当</td>
+            <td class="attn_td" id="bousaiSyudanItenJigyo_attn"></td>
+        </tr>
+        <tr>
+            <td>敷地の所有関係:<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="bukkenShikichiNoShoyuKankei" name="bukkenShikichiNoShoyuKankei">
+                    <option selected>--選択してください--</option>
+                    <option value="所有者">所有者</option>
+                    <option value="借地人">借地人</option>
+                    <option value="その他">その他</option>
+                </select>
+            </td>
+            <td class="attn_td" id="bukkenShikichiNoShoyuKankei_attn"></td>
+        </tr>
+        <tr>
+            <td>建物の床面積_住宅部分:<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="bukken_Tatemono_Jutaku" name="bukken_Tatemono_Jutaku" min="0" max="999.99"></td>
+            <td class="attn_td" id="bukken_Tatemono_Jutaku_attn"></td>
+        </tr>
+        <tr>
+            <td>建物の床面積_非住宅部分:<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="bukken_Tatemono_HiJutaku" name="bukken_Tatemono_HiJutaku" min="0" max="999.99"></td>
+            <td class="attn_td" id="bukken_Tatemono_HiJutaku_attn"></td>
+        </tr>
+        <tr>
+            <td>建物の構造（戸建形式）:<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="bukken_Kozo" name="bukken_Kozo">
+                    <option selected>--選択してください--</option>
+                    <option value="木造">木造</option>
+                    <option value="鉄筋コンクリート造">鉄筋コンクリート造</option>
+                    <option value="軽量鉄骨造">軽量鉄骨造</option>
+                    <option value="その他">その他</option>
+                </select>
+            </td>
+            <td class="attn_td" id="bukken_Kozo_attn"></td>
+        </tr>
+        <tr>
+            <td>建て方:<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="bukken_TatekataKodateKeishiki"　name="bukken_TatekataKodateKeishiki">
+                    <option selected>--選択してください--</option>
+                    <option value="01一戸建て">01一戸建て</option>
+                    <option value="02連続建て">02連続建て</option>
+                    <option value="03重ね建て">03重ね建て</option>
+                    <option value="04共同建て">04共同建て</option>
+                </select>
+            </td>
+            <td class="attn_td" id="bukken_TatekataKodateKeishiki_attn"></td>
+        </tr>
+        <tr>
+            <td>入居予定年（年）<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="nyukyoYoteiDateYear" name="nyukyoYoteiDateYear">
+                    <option selected>--選択してください--</option>
+                    <option value="2022">2022年</option>
+                    <option value="2023">2023年</option>
+                    <option value="2024">2024年</option>
+                    <option value="2025">2025年</option>
+                    <option value="2026">2026年</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="nyukyoYoteiDateYear_attn"></td>
+        </tr>
+        <tr>
+            <td>入居予定月（月）<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="nyukyoYoteiDateMonth" name="nyukyoYoteiDateMonth">
+                    <option selected>--選択してください--</option>
+                    <option value="01">1月</option>
+                    <option value="02">2月</option>
+                    <option value="03">3月</option>
+                    <option value="04">4月</option>
+                    <option value="05">5月</option>
+                    <option value="06">6月</option>
+                    <option value="07">7月</option>
+                    <option value="08">8月</option>
+                    <option value="09">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="nyukyoYoteiDateMonth_attn"></td>
+        </tr>
+        <tr>
+            <td>住宅の用途<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="jutakuYoto" name="jutakuYoto">
+                    <option selected>--選択してください--</option>
+                    <option value="01自ら居住する">01自ら居住する</option>
+                    <option value="02親族が居住する">02親族が居住する</option>
+                    <option value="03賃貸住宅">03賃貸住宅</option>
+                    <option value="04その他">04その他</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="jutakuYoto_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_工事完了予定年月_年<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="bukken_KojiKanryoDate_Year" name="bukken_KojiKanryoDate_Year">
+                    <option selected>--選択してください--</option>
+                    <option value="2022">2022年</option>
+                    <option value="2023">2023年</option>
+                    <option value="2024">2024年</option>
+                    <option value="2025">2025年</option>
+                    <option value="2026">2026年</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="bukken_KojiKanryoDate_Year_attn"></td>
+        </tr>
+        <tr>
+            <td>物件_工事完了予定年月_月<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="bukken_KojiKanryoDate_Month" name="bukken_KojiKanryoDate_Month">
+                    <option selected>--選択してください--</option>
+                    <option value="01">1月</option>
+                    <option value="02">2月</option>
+                    <option value="03">3月</option>
+                    <option value="04">4月</option>
+                    <option value="05">5月</option>
+                    <option value="06">6月</option>
+                    <option value="07">7月</option>
+                    <option value="08">8月</option>
+                    <option value="09">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="bukken_KojiKanryoDate_Month_attn"></td>
+        </tr>
+        <tr>
+            <td>資金の受取予定年月_土地先行資金_年</td>
+            <td>
+                <select id="shikinDateTochiShikinYear" name="shikinDateTochiShikinYear">
+                    <option selected>--選択してください--</option>
+                    <option value="2022">2022年</option>
+                    <option value="2023">2023年</option>
+                    <option value="2024">2024年</option>
+                    <option value="2025">2025年</option>
+                    <option value="2026">2026年</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="shikinDateTochiShikinYear_attn"></td>
+        </tr>
+        <tr>
+            <td>資金の受取予定年月_土地先行資金_月</td>
+            <td>
+                <select id="shikinDateTochiShikinMonth" name="shikinDateTochiShikinMonth">
+                    <option selected>--選択してください--</option>
+                    <option value="01">1月</option>
+                    <option value="02">2月</option>
+                    <option value="03">3月</option>
+                    <option value="04">4月</option>
+                    <option value="05">5月</option>
+                    <option value="06">6月</option>
+                    <option value="07">7月</option>
+                    <option value="08">8月</option>
+                    <option value="09">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                    </option>
+                </select>
+            </td>
+            <td class="attn_td" id="shikinDateTochiShikinMonth_attn"></td>
+        </tr>
+        <tr>
+            <td>資金の受取予定年月_中間資金_年</td>
+            <td>
+                <select id="shikinDateChukanShikinYear" name="shikinDateChukanShikin">
+                    <option selected>--選択してください--</option>
+                    <option value="2023">2023年</option>
+                    <option value="2024">2024年</option>
+                    <option value="2025">2025年</option>
+                    <option value="2026">2026年</option>
+                    <option value="2027">2027年</option>
+                </select>
+            </td>
+            <td class="attn_td" id="shikinDateChukanShikinYear_attn"></td>
+        </tr>
+        <tr>
+            <td>資金の受取予定年月_中間資金_月</td>
+            <td>
+                <select id="shikinDateChukanShikinMonth" name="shikinDateChukanShikin">
+                    <option selected>--選択してください--</option>
+                    <option value="1">1月</option>
+                    <option value="2">2月</option>
+                    <option value="3">3月</option>
+                    <option value="4">4月</option>
+                    <option value="5">5月</option>
+                    <option value="6">6月</option>
+                    <option value="7">7月</option>
+                    <option value="8">8月</option>
+                    <option value="9">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                </select>
+            </td>
+            <td class="attn_td" id="shikinDateChukanShikinMonth_attn"></td>
+        </tr>
+        <tr>
+            <td>資金の受取予定年月_最終資金_年<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="shikinDateSaishuShikinYear" name="shikinDateSaishuShikin">
+                    <option selected>--選択してください--</option>
+                    <option value="2024">2024年</option>
+                    <option value="2025">2025年</option>
+                    <option value="2026">2026年</option>
+                    <option value="2027">2027年</option>
+                    <option value="2028">2028年</option>
+                </select>
+            </td>
+            <td class="attn_td" id="shikinDateSaishuShikinYear_attn"></td>
+        </tr>
+        <tr>
+            <td>資金の受取予定年月_最終資金_月<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="shikinDateSaishuShikinMonth" name="shikinDateSaishuShikin">
+                    <option selected>--選択してください--</option>
+                    <option value="1">1月</option>
+                    <option value="2">2月</option>
+                    <option value="3">3月</option>
+                    <option value="4">4月</option>
+                    <option value="5">5月</option>
+                    <option value="6">6月</option>
+                    <option value="7">7月</option>
+                    <option value="8">8月</option>
+                    <option value="9">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                </select>
+            </td>
+            <td class="attn_td" id="shikinDateSaishuShikinMonth_attn"></td>
+        </tr>
+        <tr>
+            <td>会社名称<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="kariireIninKaishaName" name="kariireIninKaishaName" maxlength="100"></td>
+            <td class="attn_td" id="kariireIninKaishaName_attn"></td>
+        </tr>
+        <tr>
+            <td>仲介業者又は販売代理_名称（カナ）</td>
+            <td><input type="text" id="chukaiHanbaiNameKana" name="chukaiHanbaiNameKana" maxlength="100"></td>
+            <td class="attn_td" id="chukaiHanbaiNameKana_attn"></td>
+        </tr>
+        <tr>
+            <td>仲介業者又は販売代理_担当者名_名<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="chukaiHanbaiTantoshaNameMei" name="chukaiHanbaiTantoshaNameMei" maxlength="100"></td>
+            <td class="attn_td" id="chukaiHanbaiTantoshaNameMei_attn"></td>
+        </tr>
+        <tr>
+            <td>仲介業者又は販売代理_担当者名_姓<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="chukaiHanbaiTantoshaNameSei" name="chukaiHanbaiTantoshaNameSei" maxlength="100"></td>
+            <td class="attn_td" id="chukaiHanbaiTantoshaNameSei_attn"></td>
+        </tr>
+        <tr>
+            <td>建設費<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="hiyouKensetsuHi" name="hiyouKensetsuHi" size="5" min="0" max="99999"></td>
+            <td class="attn_td" id="hiyouKensetsuHi_attn"></td>
+        </tr>
+        <tr>
+            <td>土地取得費<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="hiyouTochiSyotokuHi" name="hiyouTochiSyotokuHi" size="5" min="0" max="99999"></td>
+            <td class="attn_td" id="hiyouTochiSyotokuHi_attn"></td>
+        </tr>
+        <tr>
+            <td>費用合計<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="hiyouTotal" name="hiyouTotal" size="6" min="0" max="999999" disabled></td>
+            <td class="attn_td" id="hiyouTotal_attn"></td>
+        </tr>
+
+
+        <tr>
+            <td>借入希望額_借入金額<span class="mark_span">(必須)</span></td>
+            <td>
+                <input type="text" id="kariireGakuKingaku" name="kariireGakuKingaku" min="0" max="99999">
+                <span class="unit_span">（万円）</span>
+            </td>
+            <td class="attn_td" id="kariireGakuKingaku_attn"></td>
+        </tr>
+        <tr>
+            <td>借入希望額_金利<span class="mark_span">(必須)</span></td>
+            <td>
+                <input type="text" id="kariireGakuKinri" name="kariireGakuKinri" min="0" max="10.00">
+                <span class="unit_span">（％）</span>
+            </td>
+            <td class="attn_td" id="kariireGakuKinri_attn"></td>
+        </tr>
+        <tr>
+            <td>借入希望額_返済期間<span class="mark_span">(必須)</span></td>
+            <td>
+                <input type="text" id="kariireGakuHensaiKikan" name="kariireGakuHensaiKikan" min="0" max="99">
+                <span class="unit_span">（年）</span>
+            </td>
+            <td class="attn_td" id="kariireGakuHensaiKikan_attn"></td>
+        </tr>
+        <tr>
+            <td>返済方法<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="hensaiHouhou" name="hensaiHouhou">
+                    <option selected>--選択してください--</option>
+                    <option value="01元利均等返済">01元利均等返済</option>
+                    <option value="02元金均等返済">02元金均等返済</option>
+                </select>
+            </td>
+            <td class="attn_td" id="hensaiHouhou_attn"></td>
+        </tr>
+        <tr>
+            <td>借入希望額_年間返済額の1/12<span class="mark_span">(必須)</span></td>
+            <td><input type="text" id="kariireGakuNenHensai12No1"
+                       name="kariireGakuNenHensai12No1" min="0" max="999999999" disabled>
+                <span class="unit_span">（円）</span>
+            </td>
+            <td class="attn_td" id="kariireGakuNenHensai12No1_attn"></td>
+        </tr>
+        <tr>
+            <td>被災親族同居の有無<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="hisaiShinzokuDokyoAri" name="hisaiShinzokuDokyoAri">
+                    <option selected>--選択してください--</option>
+                    <option value="1">有</option>
+                    <option value="2">無</option>
+                </select>
+            </td>
+            <td class="attn_td" id="hisaiShinzokuDokyoAri_attn"></td>
+        </tr>
+        <tr>
+            <td>据置期間の年数<span class="mark_span">(必須)</span></td>
+            <td>
+                <select id="sueokiKikanNoNensu" name="sueokiKikanNoNensu">
+                    <option selected>--選択してください--</option>
+                    <option value="1年">1年</option>
+                    <option value="2年">2年</option>
+                    <option value="3年">3年</option>
+                    <option value="4年">4年</option>
+                    <option value="5年以上">5年以上</option>
+                </select>
+            </td>
+            <td class="attn_td" id="sueokiKikanNoNensu_attn"></td>
+        </tr>
+        <tr>
+            <td>その他_借入先名称等<span class="other_mark_span">(必須)</span></td>
+            <td><input type="text" id="sonotaName" name="sonotaName" maxlength="100"></td>
+            <td class="attn_td" id="sonotaName_attn"></td>
+        </tr>
+        <tr>
+            <td>その他_借入金額<span class="other_mark_span">(必須)</span></td>
+            <td><input type="text" id="sonotaKingaku" name="sonotaKingaku" >
+                <span class="unit_span">（万円）</span>
+            </td>
+            <td class="attn_td" id="sonotaKingaku_attn"></td>
+        </tr>
+        <tr>
+            <td>その他_返済期間（年）<span class="other_mark_span">(必須)</span></td>
+            <td><input type="text" id="sonotaHensaiKikan" name="sonotaHensaiKikan" ></td>
+            <td class="attn_td" id="sonotaHensaiKikan_attn"></td>
+        </tr>
+        <tr>
+            <td>その他_年間返済額の1/12<span class="other_mark_span">(必須)</span></td>
+            <td><input type="text" id="sonotaNenHensai12No1" name="sonotaNenHensai12No1" disabled>
+                <span class="unit_span">（円）</span>
+            </td>
+            <td class="attn_td" id="sonotaNenHensai12No1_attn"></td>
+        </tr>
+        <tr>
+            <td>建設に要する費用（再掲）<span class="other_mark_span"></span></td>
+            <td><input type="text" id="hiyouTotalRe" name="hiyouTotal" min="0" max="999999" disabled>
+                <span class="unit_span">（万円）</span>
+            </td>
+            <td class="attn_td" name="hiyouTotal_attn"></td>
+        </tr>
+        <tr>
+            <td>災害融資の借入希望額、その他の借入内容<span class="other_mark_span"></span></td>
+            <td><input type="text" id="sogoKingaku" name="sogoKingaku" min="0" max="999999" disabled>
+                <span class="unit_span">（万円）</span>
+            </td>
+            <td class="attn_td" id="sogoKingaku_attn"></td>
+        </tr>
+        <tr>
+            <td>金融機関名<span class="other_mark_span">(必須)</span></td>
+            <td><input type="text" id="kinyuKikanName" name="kinyuKikanName" maxlength="100" maxlength="100"></td>
+            <td class="attn_td" id="kinyuKikanName_attn"></td>
+        </tr>
+        <tr>
+            <td>支店名<span class="other_mark_span">(必須)</span></td>
+            <td><input type="text" id="shitemName" name="shitemName" maxlength="100" maxlength="100"></td>
+            <td class="attn_td" id="shitemName_attn"></td>
+        </tr>
+
+    </table>
+    <!--ボタン-->
+    <button class="button" type="button" id="back_button" >戻る</button>
+    <button class="button" type="button" id="next_button" >次へ</button>
+
+</form>
+
+</body>
+</html>
+
+<script>
+    let otherInputMustOrNot = {value: false}; // その他の借入内容が入力したら"true"になる
+    // 入力欄　要素取得
+    let hisaijutakuShuruiInput = document.getElementById("hisaijutakuShurui")
+    let hisaijutakuShoyuuInput = document.getElementById("hisaijutakuShoyuu")
+    let higaiJokyoInput = document.getElementById("higaiJokyo")
+    let higaiJokyoDaikiboHankaiOrHankaiInput = document.getElementById("higaiJokyoDaikiboHankaiOrHankai")
+    let bukken_MensekiInput = document.getElementById("bukken_Menseki")
+    let bukkenAddressTodofukenInput = document.getElementById("bukkenAddressTodofuken")
+    let bukkenAddressShigunInput = document.getElementById("bukkenAddressShigun")
+    let bukkenAddressChosonInput = document.getElementById("bukkenAddressChoson")
+    let bukkenAddressBanchiInput = document.getElementById("bukkenAddressBanchi")
+    let bukkenAddressPostCode3Input = document.getElementById("bukkenAddressPostCode3")
+    let bousaiSyudanItenJigyoInput = document.getElementById("bousaiSyudanItenJigyo")
+    let bukkenShikichiNoShoyuKankeiInput = document.getElementById("bukkenShikichiNoShoyuKankei")
+    let bukken_Tatemono_JutakuInput = document.getElementById("bukken_Tatemono_Jutaku")
+    let bukken_Tatemono_HiJutakuInput = document.getElementById("bukken_Tatemono_HiJutaku")
+    let bukken_KozoInput = document.getElementById("bukken_Kozo")
+    let bukken_TatekataKodateKeishikiInput = document.getElementById("bukken_TatekataKodateKeishiki")
+    let nyukyoYoteiDateYearInput = document.getElementById("nyukyoYoteiDateYear")
+    let nyukyoYoteiDateMonthInput = document.getElementById("nyukyoYoteiDateMonth")
+    let jutakuYotoInput = document.getElementById("jutakuYoto")
+    let bukken_KojiKanryoDate_YearInput = document.getElementById("bukken_KojiKanryoDate_Year")
+    let bukken_KojiKanryoDate_MonthInput = document.getElementById("bukken_KojiKanryoDate_Month")
+
+    let shikinDateTochiShikinYearInput = document.getElementById("shikinDateTochiShikinYear")
+    let shikinDateTochiShikinMonthInput = document.getElementById("shikinDateTochiShikinMonth")
+    // 备份日期默认选项 資金の受取予定年月_土地先行資金
+    const shikinDateTochiShikinYearDefaultOptions  = shikinDateTochiShikinYearInput.innerHTML
+    const shikinDateTochiShikinMonthDefaultOptions = shikinDateTochiShikinMonthInput.innerHTML
+
+    let shikinDateChukanShikinYearInput = document.getElementById("shikinDateChukanShikinYear")
+    let shikinDateChukanShikinMonthInput = document.getElementById("shikinDateChukanShikinMonth")
+    // 备份日期默认选项 資金の受取予定年月_中間資金
+    const shikinDateChukanShikinYearDefaultOptions  = shikinDateChukanShikinYearInput.innerHTML
+    const shikinDateChukanShikinMonthDefaultOptions = shikinDateChukanShikinMonthInput.innerHTML
+
+    let shikinDateSaishuShikinYearInput = document.getElementById("shikinDateSaishuShikinYear")
+    let shikinDateSaishuShikinMonthInput = document.getElementById("shikinDateSaishuShikinMonth")
+    // 备份日期默认选项 資金の受取予定年月_最終資金
+    const shikinDateSaishuShikinYearDefaultOptions  = shikinDateSaishuShikinYearInput.innerHTML
+    const shikinDateSaishuShikinMonthDefaultOptions = shikinDateSaishuShikinMonthInput.innerHTML
+
+    let kariireIninKaishaNameInput = document.getElementById("kariireIninKaishaName")
+    let chukaiHanbaiNameKanaInput = document.getElementById("chukaiHanbaiNameKana")
+    let chukaiHanbaiTantoshaNameMeiInput = document.getElementById("chukaiHanbaiTantoshaNameMei")
+    let chukaiHanbaiTantoshaNameSeiInput = document.getElementById("chukaiHanbaiTantoshaNameSei")
+    let hiyouKensetsuHiInput = document.getElementById("hiyouKensetsuHi")
+    let hiyouTochiSyotokuHiInput = document.getElementById("hiyouTochiSyotokuHi")
+    let hiyouTotalInput = document.getElementById("hiyouTotal")
+    let kariireGakuKingakuInput = document.getElementById("kariireGakuKingaku")
+    let kariireGakuKinriInput = document.getElementById("kariireGakuKinri")
+    let kariireGakuHensaiKikanInput = document.getElementById("kariireGakuHensaiKikan")
+    let hensaiHouhouInput = document.getElementById("hensaiHouhou")
+    let kariireGakuNenHensai12No1Input = document.getElementById("kariireGakuNenHensai12No1")
+    let hisaiShinzokuDokyoAriInput = document.getElementById("hisaiShinzokuDokyoAri")
+    let sueokiKikanNoNensuInput = document.getElementById("sueokiKikanNoNensu")
+    let sonotaNameInput = document.getElementById("sonotaName")
+    let sonotaKingakuInput = document.getElementById("sonotaKingaku")
+    let sonotaHensaiKikanInput = document.getElementById("sonotaHensaiKikan")
+    let sonotaNenHensai12No1Input = document.getElementById("sonotaNenHensai12No1")
+    let sogoKingakuInput = document.getElementById("sogoKingaku")
+    let kinyuKikanNameInput = document.getElementById("kinyuKikanName")
+    let shitemNameInput = document.getElementById("shitemName")
+
+    let hiyouTotalReInput = document.getElementById("hiyouTotalRe")
+
+    let otherMarkSpan = document.querySelectorAll(".other_mark_span");
+
+
+    // 保存ボタン　要素取得
+    let next_buttonInput = document.getElementById("next_button")
+    let back_buttonInput = document.getElementById("back_button")
+
+
+    // idを取得する
+    const userid = localStorage.getItem("id")
+    let id = document.getElementById("id")
+    id.value = userid;
+    console.log(id)
+    // fetch("user/search",{
+    //     method: "post",
+    //     headers:{
+    //         "Content-Type": "application/json"
+    //     },
+    //     body:JSON.stringify({id})
+    // })
+    //     .then(response => response.json())
+    //     .then(user =>{
+    //         const name = user.nameSei + " " + user.nameMei;
+    //         console.log(name);
+    //         }
+    //     )
+
+    //　------------　入力変換　------------
+
+    // 郵便番号 フォーマット
+    function formatPostCode(input) {
+        // 数字以外の文字を削除する
+        let postCode = input.value.replace(/\D/g, '');
+        // 郵便番号をフォーマットする
+        if (postCode.length > 3) {
+            postCode = postCode.substring(0, 3) + '-' + postCode.substring(3,7);
+        }
+        // 入力欄の値を更新する
+        input.value = postCode;
+    }
+
+    // ------------ 入力チェック ------------
+    // --- 数値タイプ 入力を数値タイプに制限する---
+    function validateNumber(inputElement, format = []) {
+        const { value} = inputElement; // 解构赋值
+        const [n, m, max] = format; // format = [] 接受三个参数，分别是[整数最大位数，小数最大位数，最大值]
+
+        // 判断数值允许的类型，m = 0不允许小数输入，否则允许小数的输入
+        const regex = m === 0 ? /[0-9]*/ : /^(\.)[0-9]*|[0-9]*(\.[0-9]*)?/; // m为0代表只允许输入整数，采用第一个正则表达式
+        const match = value.match(regex);
+        let validValue = match ? match[0] : ""; // 提取合法输入
+
+        // 分离整数部分
+        const [integerPart,] = validValue.split(".");
+        // 如果整数部分位数大于 n，舍弃之后的整数部分
+        if (integerPart.length > n) {
+            validValue = validValue.slice(0, n);
+        }
+
+        inputElement.value = validValue > max ? max : validValue;
+
+    }
+
+
+    const InputType = {
+        SELECT: "select",
+        TEXT: "text",
+        NUMBER: "number"
+    }
+
+    // validateOnchange 元素有变化时检测有没有输入，没有输入时给出提示信息
+    function validateOnchange (mark = {}, inputElement, type = InputType.TEXT, label ="", format = [], elementGroup = []) {
+        if (mark.value) {
+            let attnElement = document.getElementById(inputElement.id + "_attn");
+            let myInput = inputElement;
+
+            if (type === "select") {
+                if(myInput.value === "--選択してください--" || !myInput.value) {
+                    attnElement.innerHTML = `${label}を入力してください`;  // 字符串模板不能用双引号或单引号,需要使用反引号 (`)
+                }
+            }
+
+            if (type === "text") {
+                if(!myInput.value) {
+                    attnElement.innerHTML = `${label}を入力してください`;
+                }
+            }
+
+            if (type === "number") {
+                let [, m, , unit] = format;
+
+                if(!myInput.value) {
+                    attnElement.innerHTML = `${label}を入力してください`;
+                }else {
+                    // 舍弃小数m位后的部分
+                    myInput.value = Math.floor(parseFloat(myInput.value) * Math.pow(10, m)) / Math.pow(10, m);
+
+                    // 如果有需要添加单位
+                    if (unit) {
+                        myInput.value = myInput.value + unit;
+                    }
+
+                }
+
+            }
+        }else {
+            elementGroup.forEach(element => {
+                let attnElement = document.getElementById(element.id + "_attn");
+                attnElement.innerHTML = "";
+            });
+        }
+
+    }
+
+    // validateOninput 元素有输入时重置提示信息，限制非法输入并规范格式
+    function validateOninput (inputElement, type = InputType.TEXT, label ="", format = []) {
+        let myInput = inputElement;
+        let attnElement = document.getElementById(inputElement.id + "_attn");
+
+        if (type === "select") {
+            if(!(myInput.value === "--選択してください--") || myInput.value) {
+                attnElement.innerHTML = "";
+            }
+        }
+
+        if (type === "text") {
+            if(myInput.value) {
+                attnElement.innerHTML = "";
+            }
+        }
+
+        if (type === "number") {
+            validateNumber (inputElement, format); // 规范格式排除数值以外的字符
+            attnElement.innerHTML = "";
+        }
+
+    }
+
+    // --- 格式规范函数 ---
+
+    function validateAndConvertInput(mark = {}, inputElement, inputType, inputName, format = [], elementGroup = []) {
+        inputElement.addEventListener('change', function () {
+            validateOnchange(mark, inputElement, inputType, inputName, format, elementGroup);
+
+        });
+
+        inputElement.addEventListener('input', function () {
+            validateOninput(inputElement, inputType, inputName, format);
+
+        });
+
+    }
+
+    //   ---.onchange = function () 形式的事件监听新的会覆盖前面的处理函数
+    // function validateAndConvertInput(mark, inputElement, inputType, inputName, format) {
+    //     // 根据是不是必须项目来判断，在必须项目时用onchange执行输入检测，非必须则不检测
+    //     if (mark) {
+    //         inputElement.onchange = function () {
+    //             validateOnchange(inputElement, inputType, inputName, format);
+    //         }
+    //         inputElement.oninput = function () {
+    //             validateOninput(inputElement, inputType, inputName, format);
+    //         }
+    //     }else {
+    //         inputElement.oninput = function () {
+    //             validateOninput(inputElement, inputType, inputName, format);
+    //         }
+    //     }
+    // }
+
+    // -------- 传递参数，挂载监听事件 ---------
+    const must = {value: true}
+    // ------ テキストタイプ ------
+    validateAndConvertInput(must, kariireIninKaishaNameInput, "text", "会社名称")
+    validateAndConvertInput(must, bukkenAddressPostCode3Input, "text", "物件_敷地（所在地）_郵便番号", ["^\d{3}-\d{4}$"])
+    // ------ 選択タイプ ------
+    validateAndConvertInput(must, chukaiHanbaiTantoshaNameMeiInput, "text", "仲介業者又は販売代理_担当者名_名")
+    validateAndConvertInput(must, chukaiHanbaiTantoshaNameSeiInput, "text", "仲介業者又は販売代理_担当者名_姓")
+    validateAndConvertInput(must, hisaijutakuShuruiInput, "select", "被災住宅の種類")
+    validateAndConvertInput(must, hisaijutakuShoyuuInput, "select", "被災住宅の所有等")
+    validateAndConvertInput(must, higaiJokyoInput, "select", "被害状況")
+    validateAndConvertInput(must, bukken_KozoInput, "select", "建物の構造（戸建形式）")
+    validateAndConvertInput(must, bukken_TatekataKodateKeishikiInput, "select", "建て方")
+    validateAndConvertInput(must, nyukyoYoteiDateYearInput, "select", "入居予定年（年）")
+    validateAndConvertInput(must, nyukyoYoteiDateMonthInput, "select", "入居予定月（月）")
+    validateAndConvertInput(must, jutakuYotoInput, "select", "住宅の用途")
+    validateAndConvertInput(must, bukken_KojiKanryoDate_YearInput, "select", "物件_工事完了予定年月_年")
+    validateAndConvertInput(must, bukken_KojiKanryoDate_MonthInput, "select", "物件_工事完了予定年月_月")
+    validateAndConvertInput(must, shikinDateSaishuShikinYearInput, "select", "資金の受取予定年月_最終資金_年")
+    validateAndConvertInput(must, shikinDateSaishuShikinMonthInput, "select", "資金の受取予定年月_最終資金_月")
+    validateAndConvertInput(must, hisaiShinzokuDokyoAriInput, "select", "被災親族同居の有無")
+    validateAndConvertInput(must, sueokiKikanNoNensuInput, "select", "据置期間の年数")
+    validateAndConvertInput(must, bukkenAddressTodofukenInput, "select", "物件_敷地（所在地）_都道府県")
+    validateAndConvertInput(must, bukkenShikichiNoShoyuKankeiInput, "select", "敷地の所有関係")
+    // ------ 数値タイプ ------
+    validateAndConvertInput(must, bukken_MensekiInput, "number", "敷地の面積（㎡）", [5,0,undefined,"㎡"])
+    validateAndConvertInput(must, bukken_Tatemono_JutakuInput, "number", "建物の床面積_住宅部分", [3,2,undefined,"㎡"])
+    validateAndConvertInput(must, bukken_Tatemono_HiJutakuInput, "number", "建物の床面積_非住宅部分", [3,2,undefined,"㎡"])
+
+    validateAndConvertInput(must, kariireGakuHensaiKikanInput, "number", "借入希望額_返済期間", [2,0])
+    validateAndConvertInput(must, kariireGakuKinriInput, "number", "借入希望額_金利", [2,2,10])
+    validateAndConvertInput(must, kariireGakuKingakuInput, "number", "借入希望額_借入金額", [5,0])
+    validateAndConvertInput(must, hensaiHouhouInput, "select", "返済方法")
+    validateAndConvertInput(must, hiyouKensetsuHiInput, "number", "建設費", [5,0])
+    validateAndConvertInput(must, hiyouTochiSyotokuHiInput, "number", "土地取得費", [5,0])
+
+
+
+    // ------------　被災住宅の種類が"マイホーム"の場合、被災住宅の所有等欄　------------
+    function showOwnershipFields() {
+        let hisaijutakuShoyuu_kari = document.getElementById("hisaijutakuShoyuu_kari");
+        if (hisaijutakuShuruiInput.value === "マイホーム") {
+            hisaijutakuShoyuu_kari.style.display = "none";
+        } else {
+            hisaijutakuShoyuu_kari.style.display = "block";
+        }
+    }
+    hisaijutakuShuruiInput.addEventListener("change", function () {
+        showOwnershipFields();
+    })
+
+
+    // ------------　被害状況が"01全壊"の場合は、被災住宅の修理が不能又は困難である欄　------------
+    function repairFields() {
+        if (higaiJokyoInput.value === "01全壊") {
+            higaiJokyoDaikiboHankaiOrHankaiInput.checked = true;
+            higaiJokyoDaikiboHankaiOrHankaiInput.disabled = true;
+        } else {
+            higaiJokyoDaikiboHankaiOrHankaiInput.checked = false;
+            higaiJokyoDaikiboHankaiOrHankaiInput.disabled = false;
+        }
+    }
+    higaiJokyoInput.addEventListener("change", function () {
+        repairFields();
+    })
+
+
+    // ------------　中間資金の受取予定年月は、「最終資金の受取予定年月」より後の年月に指定できません　------------
+    function updateDates(index, inputElement = [], label = [], elementDefault= []) {
+        let maxYear;
+        let maxMonth;
+        let maxYearOptionIndexDiff;
+        let maxMonthOptionIndexDiff;
+
+        let year;
+        let month;
+        let yearOptionIndexDiff;
+        let monthOptionIndexDiff;
+
+        let attnElement = [];
+
+        let attnLabel;
+
+        for (let i = 0, leve = 0; i <= inputElement.length - 2; i += 2, leve ++) {
+            maxYear = inputElement[i];
+            maxMonth = inputElement[i + 1];
+
+            yearOptionIndexDiff = elementDefault[i];
+            monthOptionIndexDiff = elementDefault[i + 1];
+
+            maxYearOptionIndexDiff = 5 - maxYear.selectedIndex;
+            maxMonthOptionIndexDiff = 12 - maxMonth.selectedIndex;
+
+            attnLabel = label[i/2];
+
+            if ( i + 2 > inputElement.length - 2) {
+                break;
+            }
+
+            // 向下更改选单
+            if (maxYear.value && maxYear.value !== "--選択してください--") {
+                for (let j = i + 2, leve = 1 ; j <= inputElement.length - 2; j += 2, leve ++) {
+
+                    year = inputElement[j];
+                    month = inputElement[j + 1];
+                    yearOptionIndexDiff = elementDefault[j];
+                    monthOptionIndexDiff = elementDefault[j + 1];
+
+                    attnElement[j] = document.getElementById(inputElement[j].id + "_attn");
+                    attnElement[j + 1] = document.getElementById(inputElement[j + 1].id + "_attn");
+
+                    attnElement[j].innerHTML = "";
+                    attnElement[j + 1].innerHTML = "";
+
+                    console.log("结果", month.value > maxMonth.value)
+                    if (year.value
+                        && year.value !== "--選択してください--"
+                        && maxYear.value && maxYear.value !== "--選択してください--"
+                        && parseInt(year.value) > parseInt(maxYear.value)) {
+
+                        attnElement[j].innerHTML = attnLabel + "より後の年月に指定できません";
+                        attnElement[j + 1].innerHTML = attnLabel + "より後の年月に指定できません";
+
+                    } else if (year.value === maxYear.value
+                        && maxMonth.value && maxMonth.value !== "--選択してください--"
+                        && month.value && month.value !== "--選択してください--"
+                        && parseInt(month.value) > parseInt(maxMonth.value)) {
+
+                        console.log("より後の年月に指定できません")
+
+                        attnElement[j + 1].innerHTML = attnLabel + "より後の年月に指定できません";
+
+                    }
+
+                    // 保存初始值
+                    let selectedYear = year.value;
+                    let selectedMonth = month.value;
+
+                    if (maxMonth.value && maxMonth.value !== "--選択してください--"){
+                        month.innerHTML = monthOptionIndexDiff; // 初始化选单
+
+                    }
+                    // 向下设置年份
+                    if (maxYearOptionIndexDiff >= 1) {
+                        year.innerHTML = yearOptionIndexDiff;  // 初始化选单
+                        for (let k = year.options.length - 1, l = 0; l  < maxYearOptionIndexDiff - leve; k--,l++) {
+                            year.options[k].remove();
+
+                        }
+                        year.value = selectedYear; // 恢复之前选中的值
+                        month.value = selectedMonth;
+
+                        // 如果同年且上级设置了月份，则设置下级月份选项
+                        if (maxMonth.value && maxMonth.value !== "--選択してください--" && year.selectedIndex === year.options.length - 1) {
+                            for (let k = month.options.length - 1, l = 0; l < maxMonthOptionIndexDiff; k--,l++) {
+                                month.options[k].remove();
+
+                            }
+
+                        }
+                    }
+                    month.value = selectedMonth;
+
+
+                }
+
+            }
+
+        }
+
+    }
+
+    function dataTypeLimit(inputElement = [], label = [], elementDefault= []) {
+        for (let i = 0; i < inputElement.length - 1; i++) {
+            inputElement[i].addEventListener("change", function () {
+                updateDates(i, inputElement, label, elementDefault);
+
+            })
+
+        }
+
+    }
+    dataTypeLimit([shikinDateSaishuShikinYearInput, shikinDateSaishuShikinMonthInput,
+            shikinDateChukanShikinYearInput, shikinDateChukanShikinMonthInput,
+            shikinDateTochiShikinYearInput, shikinDateTochiShikinMonthInput],
+        ["「最終資金の受取予定年月」", "「中間資金の受取予定年月」"],
+        [shikinDateSaishuShikinYearDefaultOptions, shikinDateSaishuShikinMonthDefaultOptions,
+            shikinDateChukanShikinYearDefaultOptions, shikinDateChukanShikinMonthDefaultOptions,
+            shikinDateTochiShikinYearDefaultOptions, shikinDateTochiShikinMonthDefaultOptions])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // if (index % 2 === 0) {
+    //     maxYear = parseInt(inputElement[index].value);
+    //     maxMonth = parseInt(inputElement[index + 1].value);
+    //     maxYearOptionIndexDiff = inputElement[index].options.length - inputElement[index].selectedIndex;
+    //     maxMonthOptionIndexDiff = inputElement[index + 1].options.length - inputElement[index + 1].selectedIndex;
+    //
+    //     if (index >= 2) {
+    //         // 向上查询设置月份选项
+    //         let optionsMonth = inputElement[index+1];
+    //         optionsMonth.innerHTML = elementDefault[index+1];
+    //
+    //         for (let i = index; i === 0; i -= 2) {
+    //             if (parseInt(inputElement[i-2].value) && maxYear === parseInt(inputElement[i-2].value) &&
+    //                 inputElement[index].selectedIndex === inputElement[index].options.length - 1) {
+    //                 console.log(1)
+    //
+    //                 let upIndexDiff = inputElement[index-2].options.length - inputElement[index-2].selectedIndex;
+    //
+    //                 for (let j = optionsMonth.options.length - 1, k = j; k - j <= upIndexDiff - 2; j--) {
+    //                     optionsMonth.options[j].remove();
+    //
+    //                 }
+    //                 break;
+    //
+    //             }
+    //
+    //         }
+    //     }
+    //
+    // } else {
+    //     maxYear = parseInt(inputElement[index - 1].value);
+    //     maxMonth = parseInt(inputElement[index].value);
+    //     maxYearOptionIndexDiff = inputElement[index - 1].options.length - inputElement[index - 1].selectedIndex;
+    //     maxMonthOptionIndexDiff = inputElement[index].options.length - inputElement[index].selectedIndex;
+    // }
+    //
+    // let attnElement = [];
+    //
+    // for (let i = index % 2 === 0 ? index + 2 : index + 1; i < inputElement.length - 1; i += 2) {
+    //
+    //     console.log(i)
+    //
+    //     const year = parseInt(inputElement[i].value);
+    //     const month = parseInt(inputElement[i + 1].value);
+    //
+    //     attnElement[i] = document.getElementById(inputElement[i].id + "_attn");
+    //     attnElement[i + 1] = document.getElementById(inputElement[i + 1].id + "_attn");
+    //
+    //     attnElement[i].innerHTML = "";
+    //     attnElement[i + 1].innerHTML = "";
+    //
+    //     let optionsYear = inputElement[i];
+    //     let optionsMonth = inputElement[i + 1];
+    //     // 保存初始值
+    //     const selectedYear = optionsYear.value;
+    //     const selectedMonth = optionsMonth.value;
+    //
+    //     const attnLabel = label [i / 2 - 1];
+    //
+    //
+    //     // 提示信息的功能
+    //     if (year) {
+    //         if (year > maxYear) {
+    //             attnElement[i].innerHTML = attnLabel + "より後の年月に指定できません";
+    //             attnElement[i + 1].innerHTML = attnLabel + "より後の年月に指定できません";
+    //
+    //         } else if (year === maxYear && month > maxMonth) {
+    //             attnElement[i + 1].innerHTML = attnLabel + "より後の年月に指定できません";
+    //
+    //         }
+    //
+    //     }
+    //
+    //     // 向下更改选单
+    //     if (onOrOff === "on") {
+    //         if (maxYear) {
+    //             optionsYear.innerHTML = elementDefault[i];  // 初始化选单
+    //             for (let j = optionsYear.options.length - 1, k = j; k - j <= maxYearOptionIndexDiff - 3 - (i / 2); j--) {
+    //                 optionsYear.options[j].remove();
+    //
+    //             }
+    //             // 恢复之前选中的值
+    //             optionsYear.value = selectedYear;
+    //
+    //
+    //         }
+    //
+    //         if (maxYear && maxMonth && optionsYear.selectedIndex === optionsYear.options.length - 1) {
+    //             optionsMonth.innerHTML = elementDefault[i + 1];
+    //
+    //             for (let j = optionsMonth.options.length - 1, k = j; k - j <= maxMonthOptionIndexDiff - 2; j--) {
+    //                 optionsMonth.options[j].remove();
+    //
+    //             }
+    //             optionsMonth.value = selectedMonth;
+    //
+    //
+    //         }
+    //
+    //     }
+    //
+    //
+    // }
+
+
+
+
+    // ------------　①建設費＋②土地取得費　＝　合計（自動計算）（建設に要する費用）　------------
+    function updateConstructionCost() {
+        // 有効入力チェック
+        if (hiyouKensetsuHiInput.value && hiyouTochiSyotokuHiInput.value){
+            // 建設に要する費用＝ ①建設費 ＋ ②土地取得費
+            hiyouTotalInput.value = parseInt(hiyouKensetsuHiInput.value) + parseInt(hiyouTochiSyotokuHiInput.value);
+            hiyouTotalReInput.value = hiyouTotalInput.value; // 建設に要する費用（再掲）欄を更新する
+        }else {
+            // 入力がなければ建設に要する費用をリセットする
+            hiyouTotalInput.value = "";
+            hiyouTotalReInput.value = ""; // 建設に要する費用（再掲）欄を更新する
+        }
+    }
+
+    // ------ 建設費 ------
+    hiyouKensetsuHiInput.addEventListener("input", function () {
+        updateConstructionCost()
+    })
+
+    // ------ 土地取得費 ------
+    hiyouTochiSyotokuHiInput.addEventListener("input", function () {
+        updateConstructionCost()
+    })
+
+
+
+    // ------------　名称（カタカナ）は全角を半角に自動変換　------------
+    function zenKana2hanKana(str){
+        let kanaMap = {
+            "ガ": "ｶﾞ", "ギ": "ｷﾞ", "グ": "ｸﾞ", "ゲ": "ｹﾞ", "ゴ": "ｺﾞ",
+            "ザ": "ｻﾞ", "ジ": "ｼﾞ", "ズ": "ｽﾞ", "ゼ": "ｾﾞ", "ゾ": "ｿﾞ",
+            "ダ": "ﾀﾞ", "ヂ": "ﾁﾞ", "ヅ": "ﾂﾞ", "デ": "ﾃﾞ", "ド": "ﾄﾞ",
+            "バ": "ﾊﾞ", "ビ": "ﾋﾞ", "ブ": "ﾌﾞ", "ベ": "ﾍﾞ", "ボ": "ﾎﾞ",
+            "パ": "ﾊﾟ", "ピ": "ﾋﾟ", "プ": "ﾌﾟ", "ペ": "ﾍﾟ", "ポ": "ﾎﾟ",
+            "ヴ": "ｳﾞ", "ヷ": "ﾜﾞ", "ヺ": "ｦﾞ",
+            "ア": "ｱ", "イ": "ｲ", "ウ": "ｳ", "エ": "ｴ", "オ": "ｵ",
+            "カ": "ｶ", "キ": "ｷ", "ク": "ｸ", "ケ": "ｹ", "コ": "ｺ",
+            "サ": "ｻ", "シ": "ｼ", "ス": "ｽ", "セ": "ｾ", "ソ": "ｿ",
+            "タ": "ﾀ", "チ": "ﾁ", "ツ": "ﾂ", "テ": "ﾃ", "ト": "ﾄ",
+            "ナ": "ﾅ", "ニ": "ﾆ", "ヌ": "ﾇ", "ネ": "ﾈ", "ノ": "ﾉ",
+            "ハ": "ﾊ", "ヒ": "ﾋ", "フ": "ﾌ", "ヘ": "ﾍ", "ホ": "ﾎ",
+            "マ": "ﾏ", "ミ": "ﾐ", "ム": "ﾑ", "メ": "ﾒ", "モ": "ﾓ",
+            "ヤ": "ﾔ", "ユ": "ﾕ", "ヨ": "ﾖ",
+            "ラ": "ﾗ", "リ": "ﾘ", "ル": "ﾙ", "レ": "ﾚ", "ロ": "ﾛ",
+            "ワ": "ﾜ", "ヲ": "ｦ", "ン": "ﾝ",
+            "ァ": "ｧ", "ィ": "ｨ", "ゥ": "ｩ", "ェ": "ｪ", "ォ": "ｫ",
+            "ッ": "ｯ", "ャ": "ｬ", "ュ": "ｭ", "ョ": "ｮ",
+            "。": "｡", "、": "､", "ー": "ｰ", "「": "｢", "」": "｣", "・": "･"
+        }
+        let reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
+        return str
+            .replace(reg, function (match) {
+                return kanaMap[match];
+            })
+            .replace(/゛/g, "ﾞ")
+            .replace(/゜/g, "ﾟ");
+    }
+    chukaiHanbaiNameKanaInput.addEventListener("input", function () {
+        chukaiHanbaiNameKanaInput.value=zenKana2hanKana(chukaiHanbaiNameKanaInput.value)
+        let reg = /^[ｧ-ﾝﾞﾟ]+$/;
+        let chukaiHanbaiNameKana_attn = document.getElementById("chukaiHanbaiNameKana_attn");
+        if (reg.test(chukaiHanbaiNameKanaInput.value) || !chukaiHanbaiNameKanaInput.value) {
+            chukaiHanbaiNameKana_attn.innerHTML = "";
+        } else {
+            chukaiHanbaiNameKana_attn.innerHTML = "カタカナで入力してください";
+        }
+    })
+
+
+    // ------------ 災害融資の借入希望額、その他の借入内容欄　＝その他の借入内容借入金額＋借入希望額_借入金額　------------
+    function updateSogoKingaku() {
+        if (sonotaKingakuInput.value && kariireGakuKingakuInput.value){
+            sogoKingakuInput.value = parseInt(sonotaKingakuInput.value) + parseInt(kariireGakuKingakuInput.value);
+        }
+    }
+    function sogoKingaku(inputElement) {
+        inputElement.addEventListener("input", function () {
+            updateSogoKingaku()
+        })
+    }
+    sogoKingaku(sonotaKingakuInput)
+    sogoKingaku(kariireGakuKingakuInput)
+
+
+    // ------------ その他の借入内容入力したら、その他の借入内容は必須になる　------------
+
+    function updateOtherMarkSpan(inputElement, MustOrNot = {}) {
+
+        if (inputElement.every(input => input.value.trim() === "")) {
+            for (let i = 0; i < otherMarkSpan.length; i++) {
+                otherMarkSpan[i].style.display = "none";
+            }
+            MustOrNot.value = false;
+
+
+        }else {
+            for (let i = 0; i < otherMarkSpan.length; i++) {
+                otherMarkSpan[i].style.display = "inline";
+            }
+            MustOrNot.value = true;
+
+        }
+
+
+    }
+    function otherMarkSpanOn(inputElement = [], MustOrNot = {}) {
+        for (let i = 0;i < inputElement.length;i++) {
+            inputElement[i].addEventListener("input", function () {
+                otherMarkSpan[i].style.display = "none";
+                updateOtherMarkSpan(inputElement, MustOrNot);
+
+
+            })
+
+        }
+
+
+    }
+    otherMarkSpanOn([sonotaNameInput, sonotaKingakuInput, sonotaHensaiKikanInput, kinyuKikanNameInput, shitemNameInput], otherInputMustOrNot)
+
+    validateAndConvertInput(otherInputMustOrNot, sonotaNameInput, "text", "その他_借入先名称等", undefined, [sonotaNameInput, sonotaKingakuInput, sonotaHensaiKikanInput, kinyuKikanNameInput, shitemNameInput])
+    validateAndConvertInput(otherInputMustOrNot, sonotaKingakuInput, "number", "その他_借入金額（万円）", [5,0], [sonotaNameInput, sonotaKingakuInput, sonotaHensaiKikanInput, kinyuKikanNameInput, shitemNameInput])
+    validateAndConvertInput(otherInputMustOrNot, sonotaHensaiKikanInput, "number", "その他_返済期間（年）", [2,0], [sonotaNameInput, sonotaKingakuInput, sonotaHensaiKikanInput, kinyuKikanNameInput, shitemNameInput])
+    validateAndConvertInput(otherInputMustOrNot, kinyuKikanNameInput, "text", "金融機関名", undefined, [sonotaNameInput, sonotaKingakuInput, sonotaHensaiKikanInput, kinyuKikanNameInput, shitemNameInput])
+    validateAndConvertInput(otherInputMustOrNot, shitemNameInput, "text", "支店名", undefined, [sonotaNameInput, sonotaKingakuInput, sonotaHensaiKikanInput, kinyuKikanNameInput, shitemNameInput])
+    // その他 入力チェック
+
+
+
+    // ------------ 年間返済額の1/12計算　------------
+    function updateAnnualRepayment(inputElement) {
+        // const P = parseInt(kariireGakuKingakuInput.value) * 10000; // 贷款本金
+        // const r = parseInt(kariireGakuKinriInput.value) / 12 / 100; // 月利率
+        // const n = parseInt(kariireGakuHensaiKikanInput.value) * 12; // 还款期数
+
+        const [rate, principal, period, methods, outputElement] = inputElement;
+        let r = parseInt(rate.value) / 12 / 100; // 月利率
+        let P = parseInt(principal.value) * 10000; // 贷款本金
+        let n = parseInt(period.value) * 12; // 还款期数
+
+        if (!P || !r || !n || !methods.value || methods.value === "--選択してください--") {
+            outputElement.value = "";
+            return;
+        }
+
+        const annualRepayment = (methods.value === "01元利均等返済")
+            ? (P * r) + P / n
+            : (P * r * Math.pow((1+r), n)) / (Math.pow((1+r), n) - 1);
+
+        outputElement.value = annualRepayment.toFixed(0);
+
+    }
+
+    function annualRepayment(inputElement = []) {
+        for (let i = 0;i < inputElement.length;i++) {
+            inputElement[i].addEventListener("change", function () {
+                updateAnnualRepayment(inputElement)
+            })
+
+        }
+
+    }
+
+    kariireGakuKinriInput.addEventListener("change", function () {
+        if (kariireGakuKinriInput.value) {
+            kariireGakuKinriInput.value = (Math.floor(parseFloat(kariireGakuKinriInput.value) * 100) / 100).toFixed(2);
+
+        }
+
+    })
+
+    // 借入希望額_金利, 借入希望額_借入金額, 借入希望額_返済期間, 返済方法, 年間返済額の1/12
+    annualRepayment([kariireGakuKinriInput, kariireGakuKingakuInput,
+        kariireGakuHensaiKikanInput, hensaiHouhouInput, kariireGakuNenHensai12No1Input])
+
+    //　その他部分
+    annualRepayment([kariireGakuKinriInput, sonotaKingakuInput,
+        sonotaHensaiKikanInput, hensaiHouhouInput, sonotaNenHensai12No1Input])
+
+
+    function hasInputValue(input = []) {
+        for (let i = 0; i < input.length; i++) {
+            return Boolean(!input[i] && !input[i] !== "--選択してください--");
+        }
+    }
+    back_buttonInput.addEventListener("click",() => {
+        window.location.href = "tanponin.html";
+    })
+    // 保存ボタン　
+    next_buttonInput.addEventListener("click",() => {
+        let hisaijutakuShurui = hisaijutakuShuruiInput.value.trim()
+        let hisaijutakuShoyuu = hisaijutakuShoyuuInput.value.trim()
+        let higaiJokyo = higaiJokyoInput.value.trim()
+        let higaiJokyoDaikiboHankaiOrHankai = higaiJokyoDaikiboHankaiOrHankaiInput.value.trim()
+        let bukken_Menseki = bukken_MensekiInput.value.trim()
+        let bukkenAddressTodofuken = bukkenAddressTodofukenInput.value.trim()
+        let bukkenAddressShigun = bukkenAddressShigunInput.value.trim()
+        let bukkenAddressChoson = bukkenAddressChosonInput.value.trim()
+        let bukkenAddressBanchi = bukkenAddressBanchiInput.value.trim()
+        let bukkenAddressPostCode3 = bukkenAddressPostCode3Input.value.trim()
+        let bousaiSyudanItenJigyo = bousaiSyudanItenJigyoInput.value.trim()
+        let bukkenShikichiNoShoyuKankei = bukkenShikichiNoShoyuKankeiInput.value.trim()
+        let bukken_Tatemono_Jutaku = bukken_Tatemono_JutakuInput.value.trim()
+        let bukken_Tatemono_HiJutaku = bukken_Tatemono_HiJutakuInput.value.trim()
+        let bukken_Kozo = bukken_KozoInput.value.trim()
+        let bukken_TatekataKodateKeishiki = bukken_TatekataKodateKeishikiInput.value.trim()
+        let nyukyoYoteiDateYear = nyukyoYoteiDateYearInput.value.trim()
+        let nyukyoYoteiDateMonth = nyukyoYoteiDateMonthInput.value.trim()
+        let jutakuYoto = jutakuYotoInput.value.trim()
+        let bukken_KojiKanryoDate_Year = bukken_KojiKanryoDate_YearInput.value.trim()
+        let bukken_KojiKanryoDate_Month = bukken_KojiKanryoDate_MonthInput.value.trim()
+        let shikinDateTochiShikinYear = shikinDateTochiShikinYearInput.value.trim()
+        let shikinDateTochiShikinMonth = shikinDateTochiShikinMonthInput.value.trim()
+        let shikinDateChukanShikinYear = shikinDateChukanShikinYearInput.value.trim()
+        let shikinDateChukanShikinMonth = shikinDateChukanShikinMonthInput.value.trim()
+        let shikinDateSaishuShikinYear = shikinDateSaishuShikinYearInput.value.trim()
+        let shikinDateSaishuShikinMonth = shikinDateSaishuShikinMonthInput.value.trim()
+        let kariireIninKaishaName = kariireIninKaishaNameInput.value.trim()
+        let chukaiHanbaiNameKana = chukaiHanbaiNameKanaInput.value.trim()
+        let chukaiHanbaiTantoshaNameMei = chukaiHanbaiTantoshaNameMeiInput.value.trim()
+        let chukaiHanbaiTantoshaNameSei = chukaiHanbaiTantoshaNameSeiInput.value.trim()
+        let hiyouKensetsuHi = hiyouKensetsuHiInput.value.trim()
+        let hiyouTochiSyotokuHi = hiyouTochiSyotokuHiInput.value.trim()
+        let hiyouTotal = hiyouTotalInput.value.trim()
+        let kariireGakuKingaku = kariireGakuKingakuInput.value.trim()
+        let kariireGakuKinri = kariireGakuKinriInput.value.trim()
+        let kariireGakuHensaiKikan = kariireGakuHensaiKikanInput.value.trim()
+        let hensaiHouhou = hensaiHouhouInput.value.trim()
+        let kariireGakuNenHensai12No1 = kariireGakuNenHensai12No1Input.value.trim()
+        let hisaiShinzokuDokyoAri = hisaiShinzokuDokyoAriInput.value.trim()
+        let sueokiKikanNoNensu = sueokiKikanNoNensuInput.value.trim()
+        let sonotaName = sonotaNameInput.value.trim()
+        let sonotaKingaku = sonotaKingakuInput.value.trim()
+        let sonotaHensaiKikan = sonotaHensaiKikanInput.value.trim()
+        let sonotaNenHensai12No1 = sonotaNenHensai12No1Input.value.trim()
+        let sogoKingaku = sogoKingakuInput.value.trim()
+        let kinyuKikanName = kinyuKikanNameInput.value.trim()
+        let shitemName = shitemNameInput.value.trim()
+
+        // 入力チェック
+        if (hasInputValue([
+            kariireIninKaishaName,
+            chukaiHanbaiTantoshaNameMei,
+            chukaiHanbaiTantoshaNameSei,
+            hisaijutakuShurui,
+            hisaijutakuShoyuu,
+            higaiJokyo,
+            bukken_Kozo,
+            bukken_TatekataKodateKeishiki,
+            nyukyoYoteiDateYear,
+            nyukyoYoteiDateMonth,
+            jutakuYoto,
+            bukken_KojiKanryoDate_Year,
+            bukken_KojiKanryoDate_Month,
+            shikinDateSaishuShikinYear,
+            shikinDateSaishuShikinMonth,
+            hisaiShinzokuDokyoAri,
+            sueokiKikanNoNensu,
+            bukken_Menseki,
+            bukken_Tatemono_Jutaku,
+            bukken_Tatemono_HiJutaku,
+            kariireGakuHensaiKikan,
+            kariireGakuKinri,
+            kariireGakuKingaku,
+            hensaiHouhou,
+            hiyouKensetsuHi,
+            hiyouTochiSyotokuHi])
+
+        ) {
+            alert("正しく入力してください");
+            return;
+
+        }
+
+
+        // 其他输入栏 检测空值
+        if (otherInputMustOrNot.value) {
+            if (hasInputValue([
+                sonotaName,
+                sonotaKingaku,
+                sonotaHensaiKikan,
+                sogoKingaku,
+                kinyuKikanName,
+                shitemName
+            ])
+
+            ){
+                alert("正しく入力してください");
+                return;
+            }
+
+        }
+
+
+
+
+        // データ送信
+        fetch("shienshinse/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },body: JSON.stringify({
+                hisaijutakuShurui,
+                hisaijutakuShoyuu,
+                higaiJokyo,
+                higaiJokyoDaikiboHankaiOrHankai,
+                bukken_Menseki,
+                bukkenAddressTodofuken,
+                bukkenAddressShigun,
+                bukkenAddressChoson,
+                bukkenAddressBanchi,
+                bukkenAddressPostCode3,
+                bousaiSyudanItenJigyo,
+                bukkenShikichiNoShoyuKankei,
+                bukken_Tatemono_Jutaku,
+                bukken_Tatemono_HiJutaku,
+                bukken_Kozo,
+                bukken_TatekataKodateKeishiki,
+                nyukyoYoteiDateYear,
+                nyukyoYoteiDateMonth,
+                jutakuYoto,
+                bukken_KojiKanryoDate_Year,
+                bukken_KojiKanryoDate_Month,
+                shikinDateTochiShikinYear,
+                shikinDateTochiShikinMonth,
+                shikinDateChukanShikinYear,
+                shikinDateChukanShikinMonth,
+                shikinDateSaishuShikinYear,
+                shikinDateSaishuShikinMonth,
+                kariireIninKaishaName,
+                chukaiHanbaiNameKana,
+                chukaiHanbaiTantoshaNameMei,
+                chukaiHanbaiTantoshaNameSei,
+                hiyouKensetsuHi,
+                hiyouTochiSyotokuHi,
+                hiyouTotal,
+                kariireGakuKingaku,
+                kariireGakuKinri,
+                kariireGakuHensaiKikan,
+                hensaiHouhou,
+                kariireGakuNenHensai12No1,
+                hisaiShinzokuDokyoAri,
+                sueokiKikanNoNensu,
+                sonotaName,
+                sonotaKingaku,
+                sonotaHensaiKikan,
+                sonotaNenHensai12No1,
+                sogoKingaku,
+                kinyuKikanName,
+                shitemName})
+        })
+            .then(response => {
+                    console.log(response);
+                    if (response.ok){
+                        alert("保存成功");
+                        window.location.href = "shinsejohou.html";
+                    }else {
+                        return response.text().then(text => {
+                            throw new Error(text);
+                        })
+                            .catch(error => {
+                                alert("エラー" + error.message);
+                            })
+                    }
+                }
+            )
+
+
+    })
+
+
+
+</script>
+
+
+

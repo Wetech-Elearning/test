@@ -1,0 +1,47 @@
+function updateDates(inputElementYear, inputElementMonth, labelYear ="", labelMonth ="",
+inputElementMax = [], inputElementMaxLabel = []) {
+const nonEmptyinputElementMax = inputElementMax.filter((item) => item !== "");
+const nonEmptyinputElementMaxIndex = nonEmptyinputElementMax.map((_, i) =>
+inputElementMax.indexOf(nonEmptyinputElementMax[i]));
+const maxLable = inputElementMax.map((item, i) => {
+if (item === "") {
+return "";
+} else {
+let p;
+if (i % 2 !== 0){
+p = i-1;
+}
+return inputElementMaxLabel[nonEmptyinputElementMaxIndex.indexOf(p)];
+}
+})
+const attnElementYear = document.getElementById(inputElementYear.id + "_attn");
+const attnElementMonth = document.getElementById(inputElementMonth.id + "_attn");
+const maxYear = inputElementMax[0];
+const maxMonth= inputElementMax[1];
+const yearInput = inputElementYear;
+const monthInput = inputElementMonth;
+
+let attn = "";
+for (let i = 0; i < maxLable.length; i++) {
+attn = attn + "[" +maxLable[i] + "]";
+}
+
+if (maxYear && yearInput > maxYear) {
+attnElementYear.innerHTML = attn + "より後の年月に指定できません";
+}
+if ((maxYear && yearInput === maxYear) && monthInput > maxMonth) {
+attnElementMonth.innerHTML = attn + "より後の年月に指定できません";
+}
+
+}
+function dataTypeLimit (inputElementYear, inputElementMonth, labelYear ="", labelMonth ="",
+inputElementMax = [], inputElementMaxLabel = []) {
+inputElementYear.onchange = function () {
+updateDates(inputElementYear, inputElementMonth, labelYear = "", labelMonth = "",
+inputElementMax = [], inputElementMaxLabel = [])
+}
+inputElementMonth.onchange = function () {
+updateDates(inputElementYear, inputElementMonth, labelYear = "", labelMonth = "",
+inputElementMax = [], inputElementMaxLabel = [])
+}
+}
